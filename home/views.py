@@ -1,4 +1,7 @@
 from django.shortcuts import render
-app_name = 'home'
+from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
+
+app_name = APP_NAMES.HOME
+verbose_name = VERBOSE_APP_NAMES.HOME
 def homeView(request):
-    return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':'Стартовая страница','page_style':app_name})
+    return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':verbose_name,'page_style':app_name})

@@ -18,19 +18,22 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-
+from APP_NAMES import APP_NAMES
 import home.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    path('blog/', include('blog.urls')),
-    path('portfolio/', include('portfolio.urls')),
-    path('usermessages/', include('usermessages.urls')),
-    path('artists/', include('artists.urls')),
-    path('events/', include('events.urls')),
-    path('partners/', include('partners.urls')),
-    path('sign/', include('reguser.urls')),
+    path(f'{APP_NAMES.BLOG}/', include(f'{APP_NAMES.BLOG}.urls')),
+    path(f'{APP_NAMES.PORTFOLIO}/', include(f'{APP_NAMES.PORTFOLIO}.urls')),
+    path(f'{APP_NAMES.USER_MESSAGES}/', include(f'{APP_NAMES.USER_MESSAGES}.urls')),
+    path(f'{APP_NAMES.ARTISTS}/', include(f'{APP_NAMES.ARTISTS}.urls')),
+    path(f'{APP_NAMES.STANDARDS}/', include(f'{APP_NAMES.STANDARDS}.urls')),
+    path(f'{APP_NAMES.EVENTS}/', include(f'{APP_NAMES.EVENTS}.urls')),
+    path(f'{APP_NAMES.PARTNERS}/', include(f'{APP_NAMES.PARTNERS}.urls')),
+    path(f'{APP_NAMES.CONTESTS}/', include(f'{APP_NAMES.CONTESTS}.urls')),
+    path(f'{APP_NAMES.SIGN}/', include(f'{APP_NAMES.REG_USER}.urls')),
+    path(f'{APP_NAMES.ISSUES}/', include(f'{APP_NAMES.ISSUES}.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

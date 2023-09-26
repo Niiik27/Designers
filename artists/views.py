@@ -1,5 +1,8 @@
 from django.shortcuts import render
-app_name = 'artists'
-def artistsView(request, article_id):
+from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
+
+app_name = APP_NAMES.ARTISTS
+verbose_name = VERBOSE_APP_NAMES.ARTISTS
+def artistsView(request):
     return render(request, template_name=f'./{app_name}/{app_name}.html',
-                  context={'page_name': 'Проектанты', 'page_style': app_name})
+                  context={'page_name': verbose_name, 'page_style': app_name})

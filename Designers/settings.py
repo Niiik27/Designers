@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+from APP_NAMES import APP_NAMES
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,15 +39,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home',
-    'userprofile',
-    'blog',
-    'usermessages',
-    'portfolio',
-    'artists',
-    'events',
-    'partners',
-    'reguser',
+    APP_NAMES.HOME,
+    APP_NAMES.ISSUES,
+    APP_NAMES.REG_USER,
+    APP_NAMES.USER_PROFILE,
+    APP_NAMES.STANDARDS,
+    APP_NAMES.BLOG,
+    APP_NAMES.USER_MESSAGES,
+    APP_NAMES.PORTFOLIO,
+    APP_NAMES.ARTISTS,
+    APP_NAMES.EVENTS,
+    APP_NAMES.PARTNERS,
+    APP_NAMES.CONTESTS,
 ]
 
 MIDDLEWARE = [
