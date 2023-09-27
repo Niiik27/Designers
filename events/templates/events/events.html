@@ -5,16 +5,16 @@
             <div class="wrapper">
                 <h1 class="title title--h1">Блог</h1>
 
-                {% for article in articles %}
+                {% for event in events %}
                     <div class="card">
                         <div class="col-l">
-                            <img class="card__img" src="{{ article.image.url }}" alt="">
+                            <img class="card__img" src="{{ event.image.url }}" alt="Нет картинки">
                         </div>
 
                         <div class="col-r">
-                            <a class="title card__title" href="{% url 'detail_in_urls' article.id %}">{{ article.title }}</a>
-                            <p class="card__desc">{{ article.desc|truncatechars:450 }}</p>
-                            <p class = "card__date">{{ article.date }}</p>
+                            <a class="title card__title" href="{% url 'event' event.id %}">{{ event.title }}</a>
+                            <p class="card__desc">{{ event.desc|truncatechars:450 }}</p>
+                            <p class = "card__date">{{ event.date }}</p>
                         </div>
                     </div>
                 {% endfor %}

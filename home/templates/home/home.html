@@ -1,18 +1,23 @@
-<!doctype html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static '' %}{{ page_style }}/css/style.css">
-    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-    <title>{{ page_name }}</title>
-    <div>{{ page_name }}</div>
-    <div>{{ page_style }}</div>
-</head>
-<body>
-
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <main>
+<!--        Добавить код для секции hero, отображать только после авторизации-->
+        <section class="hero">
+            <div class="wrapper hero-wrapper">
+                <img src="" alt="" class="my_image hero__my_image">
+                <span class="first_name">Имя: Текст рыба</span>
+                <span class="last_name">Фамилия: Текст рыба</span>
+                <span class="my_age">Дата рождения 27.10.1980(42)</span>
+                <p class="my_desc">О себе: </p>
+                <p class="my_desc">О себе: </p>
+            </div>
+        </section>
+<!--        Добавить код для отображения регистрации. Только не ля авторизованных пользователей-->
+        <section class="hero">
+            <div class="wrapper hero-wrapper">
+                <h2>Регистрация нового пользователя</h2>
+                <a href="#" class="sign_link">Регистрация</a>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -4,7 +4,10 @@ body{
 }
 .header{
 
-    background:#343c3d;
+    /*background:#343c3d;*/
+    /*background:linear-gradient(transparent 0px, white);*/
+    /*Никак не запомню растяжку. По этому пихаю ее везде, что бы либо запомнить, либо иметь под рукой*/
+    background:linear-gradient(#343c3d 0px, #343c3d66);
     /* display:flex;
     flex-direction: row;
     height: 80px;
@@ -13,31 +16,38 @@ body{
     background:#bfd69e; */
 }
 
+div{
+    background: linear-gradient(#54eeff 0px, #343c3d66);
+}
+
 .wrapper{
     width:100%;
+    height:100px;
     max-width: 1440px;
     margin: 0 auto;
+    background: linear-gradient(#54eeff 0px, #343c3d66);
 }
 .header-wrapper{
     display:flex;
+    flex-direction: row;
     height: 80px;
     justify-content:space-between;
     align-items: center;
-    /* background: black; */
+     /*background: black;*/
 }
 
 .header-right{
     display:flex;
-    /* flex-direction: row; */
-    width: 300px;
-    justify-content:flex-end;
+    flex-direction: row;
+    width: 25%;
+    justify-content:space-between;
     align-items: center;
-    /* background:#67d6f2; */
+    background: #1332ff;
     }
 
 
 .header-right > .link{
-    margin-left: 40px;
+    /*margin-left: 40px;*/
     }
 
 .header-right > .link:hover{
@@ -72,6 +82,38 @@ body{
 }
 
 
-nav > .link{
-    margin: 0 20px;
+nav > div > .link{
+    /*margin: 0 20px;*/
+}
+
+.info-block{
+    display:flex;
+    flex-direction: row;
+    background: #55dc38;
+    width:65%;
+    justify-content:space-between;
+    align-items: center;
+}
+
+.base-block{
+    display:flex;
+    flex-direction: row;
+    background: #f5d926;
+    width:25%;
+    justify-content:space-between;
+    align-items: center;
+}
+
+
+.nav_wrapper{
+    display:flex;
+    flex-direction: row;
+    width:60%;
+    justify-content: space-between;
+    align-items: center;
+    background: #f54706;
+}
+.logo{
+    background: #bd1ae8;
+    width:10%;
 }

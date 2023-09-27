@@ -1,13 +1,14 @@
-from enum import Enum
+from abc import ABC
 
 
-class APP_NAMES:
+class APP_NAMES(ABC):
     # MY APPS NAMES:
     # Если сразу давать русский перевод, то при появлении новых приложений не протеряется и не забудется
     HOME = 'home'
 
     SIGN = 'sign'
     REG_USER = 'reguser'
+    LOGIN_USER = 'loginuser'
 
     USER_PROFILE = 'userprofile'
     PORTFOLIO = 'portfolio'
@@ -20,6 +21,8 @@ class APP_NAMES:
     CONTESTS = 'contests'
 
     ARTISTS = 'artists'
+
+
     PARTNERS = 'partners'
 
 class VERBOSE_APP_NAMES(APP_NAMES):
@@ -29,6 +32,7 @@ class VERBOSE_APP_NAMES(APP_NAMES):
 
     SIGN = u'Вход'
     REG_USER = u'Регистрация'
+    LOGIN_USER = u'Воити'
 
     USER_PROFILE = u'Профиль'
     PORTFOLIO = u'Портфолио'
@@ -44,3 +48,4 @@ class VERBOSE_APP_NAMES(APP_NAMES):
     PARTNERS = u'Партнеры'
 
 
+print(VERBOSE_APP_NAMES.PARTNERS)

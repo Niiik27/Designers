@@ -1,5 +1,5 @@
 from django.db import models
-from  APP_NAMES import APP_NAMES,VERBOSE_APP_NAMES
+from . views import app_name,verbose_name
 # Таблица мероприятий
 class Event(models.Model):
     title = models.CharField('Заголовок',max_length=15)  # Ограниченная строка
@@ -10,6 +10,6 @@ class Event(models.Model):
     def __str__(self):
         return f"{self.title} | {self.date}"
     class Meta:
-        verbose_name = APP_NAMES.EVENTS
-        verbose_name_plural = VERBOSE_APP_NAMES.EVENTS
+        verbose_name = app_name
+        verbose_name_plural = verbose_name
 

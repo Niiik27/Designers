@@ -13,21 +13,29 @@
             <div class="logo">
                 <img src="" alt="">
             </div>
-            <nav>
-                <a href="{% url 'home' %}" class="link">Главная</a>
-                <a href="{% url 'standards' %}" class="link">Блог</a>
-                <a href="{% url 'issuses' %}" class="link">Профиль</a>
-                <a href="{% url 'admin:index' %}" class="link">Админка</a>
+            <nav class="nav_wrapper">
+<!--                Вот сюда бы импортировать питоновский код с именами приложений-->
+                <div class="info-block">
+                    <a href="{% url 'home' %}" class="link">Главная</a>
+                    <a href="{% url 'standards' %}" class="link">Нормативы</a>
+                    <a href="{% url 'issues' %}" class="link">Обсуждения</a>
+                    <a href="{% url 'events' %}" class="link">События</a>
+                    <a href="{% url 'contests' %}" class="link">Конкурсы</a>
+                </div>
+                <div class="base-block">
+                    <a href="{% url 'artists' %}" class="link">Проектанты</a>
+                    <a href="{% url 'partners' %}" class="link">Партнеры</a>
+                </div>
             </nav>
-            <div class="header-right">
+            <div class="header-right ">
         <!--        Добавить код проверки на авторизацию-->
                 {% if request.user.username %}
                     <a href="{% url 'logoutuser' %}" class="link link-primary">Выход</a>
                 {% else %}
-                    <a href="{% url 'registration_in_urls' %}" class="link">Регистрация</a>
-                    <a href="{% url 'login_in_urls' %}" class="link link-primary">Вход</a>
+                    <a href="{% url 'reguser' %}" class="link">Регистрация</a>
+                    <a href="% url 'login' %}" class="link link-primary">Вход</a>
                 {% endif %}
-
+                <a href="{% url 'admin:index' %}" class="link">Админка</a>
         <!--        Добавить код, если пользователь авторизовался-->
 
             </div>

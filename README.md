@@ -1,4 +1,6 @@
-
+<span style="color:red">
+# pip freeze > requirements.txt
+</span>
 
 ###### https://django.fun/ru/docs/django/4.1/ref/models/fields/
 # MARCDOWN
