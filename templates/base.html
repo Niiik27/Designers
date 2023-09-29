@@ -36,7 +36,7 @@
             <div class="header-right ">
         <!--        Добавить код проверки на авторизацию-->
                 {% if request.user.username %}
-                    <a href="{% url 'logoutuser' %}" class="link link-primary">Выход</a>
+                    <a href="% url 'logoutuser' %}" class="link link-primary">Выход</a>
                 {% else %}
                     <a href="{% url 'reguser' %}" class="link">Регистрация</a>
                     <a href="% url 'login' %}" class="link link-primary">Вход</a>

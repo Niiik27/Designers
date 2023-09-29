@@ -4,6 +4,8 @@
     <files>
       <node color="7" path="$PROJECT_DIR$/Designers" />
       <node color="3" path="$PROJECT_DIR$/events" />
+      <node color="1" path="$PROJECT_DIR$/static" />
+      <node color="1" path="$PROJECT_DIR$/templates" />
     </files>
     <colors>
       <color id="1" value="#4f060d" name="Color 1" enabled="true" />

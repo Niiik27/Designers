@@ -1,7 +1,7 @@
 from django.apps import AppConfig
-# from . views import app_name,verbose_app_name
+from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 
 class MyEventConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'events'
-    verbose_name = 'События'
+    name = APP_NAMES.EVENTS
+    verbose_name = VERBOSE_APP_NAMES.EVENTS

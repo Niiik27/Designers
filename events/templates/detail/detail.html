@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
 <main>
-    <h1>Подробнее</h1>
-    <h2>{{ article_html.title }}</h2>
-    <img src="{{ article_html.image.url }}" alt="">
-    <p>{{ article_html.desc }}</p>
+    <h1>{{ page_name }}</h1>
+    <img src="{{ event.image.url }}" alt="">
+    <p>{{ event.desc }}</p>
 </main>
 {% endblock %}

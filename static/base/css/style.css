@@ -16,16 +16,16 @@ body{
     background:#bfd69e; */
 }
 
-div{
-    background: linear-gradient(#54eeff 0px, #343c3d66);
-}
+/*div{*/
+/*    background: linear-gradient(#54eeff 0px, #343c3d66);*/
+/*}*/
 
 .wrapper{
     width:100%;
     height:100px;
     max-width: 1440px;
     margin: 0 auto;
-    background: linear-gradient(#54eeff 0px, #343c3d66);
+    /*background: linear-gradient(#54eeff 0px, #343c3d66);*/
 }
 .header-wrapper{
     display:flex;

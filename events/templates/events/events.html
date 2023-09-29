@@ -3,20 +3,25 @@
 {% block content %}
         <main>
             <div class="wrapper">
-                <h1 class="title title--h1">Блог</h1>
+                <h1 class="title title--h1">События</h1>
 
                 {% for event in events %}
-                    <div class="card">
+
+                    <a href="{% url 'event' event.id %}"  class="card card-ref">
                         <div class="col-l">
                             <img class="card__img" src="{{ event.image.url }}" alt="Нет картинки">
                         </div>
 
                         <div class="col-r">
-                            <a class="title card__title" href="{% url 'event' event.id %}">{{ event.title }}</a>
+                            <div class="card__title">
+                                <p class="title">{{ event.title }}</p>
+                                <p class = "card__date">{{ event.date }}</p>
+                            </div>
                             <p class="card__desc">{{ event.desc|truncatechars:450 }}</p>
-                            <p class = "card__date">{{ event.date }}</p>
+
                         </div>
-                    </div>
+                    </a>
+
                 {% endfor %}
             </div>
         </main>
