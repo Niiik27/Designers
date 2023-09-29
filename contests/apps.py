@@ -1,6 +1,7 @@
 from django.apps import AppConfig
-
+from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 
 class ContestsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'contests'
+    name = APP_NAMES.CONTESTS
+    verbose_name = VERBOSE_APP_NAMES.CONTESTS
