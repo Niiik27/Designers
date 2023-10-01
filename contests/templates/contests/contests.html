@@ -5,20 +5,23 @@
             <div class="wrapper">
                 <h1 class="title title--h1">{{ page_name }}</h1>
 
-                {% for event in events %}
+                {% for contest in contests %}
 
-                    <a href="{% url 'event' event.id %}"  class="card card-ref">
+                    <a href="{{ contest.contestRef }}"  class="card card-ref">
                         <div class="col-l">
-                            <img class="card__img" src="{{ event.image.url }}" alt="Нет картинки">
+                            <img class="card__img" src="data:image/jpg;base64,{{ contest.contestImgBase64 }}" alt="Нет картинки">
                         </div>
 
                         <div class="col-r">
                             <div class="card__title">
-                                <p class="title">{{ event.title }}</p>
-                                <p class = "card__date">{{ event.date }}</p>
+                                <h4 class="title">{{ contest.contestName }}</h4>
+                                <p class = "card__date">{{ contest.contestRef }}</p>
                             </div>
-                            <p class="card__desc">{{ event.desc|truncatechars:450 }}</p>
 
+
+                            {% for desc in contest.contestDesc %}
+                                <div class="card__desc">{{ desc }}</div>
+                            {% endfor %}
                         </div>
                     </a>
 
