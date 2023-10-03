@@ -13,34 +13,34 @@ from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-app_name = APP_NAMES.REG_USER
-verbose_name = VERBOSE_APP_NAMES.REG_USER
+app_name = APP_NAMES.LOGIN_USER
+verbose_name = VERBOSE_APP_NAMES.LOGIN_USER
 
-
-def reguserView(request):
-    if request.method == "GET":
-        return render(request, 'reguser/reguser.html', {'formuser': UserCreationForm(), 'page_name': 'Регистрация'})
-    else:
-        if request.POST['password1'] == request.POST['password2']:
-            try:
-                user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
-                user.save()
-                login(request, user)
-                return redirect('home')
-            except IntegrityError:
-                return render(request, 'reguser/reguser.html',
-                              {'formuser': UserCreationForm(), 'error': 'Такой логин уже занят',
-                               'page_name': 'Регистрация - выберите другой логин'})
-        else:
-            return render(request, 'reguser/reguser.html',
-                          {'formuser': UserCreationForm(), 'error': 'Пароли не совпадают',
-                           'page_name': 'Введите совпадающие пароли', })
+#
+# def reguserView(request):
+#     if request.method == "GET":
+#         return render(request, 'reguser/reguser.html', {'formuser': UserCreationForm(), 'page_name': 'Регистрация'})
+#     else:
+#         if request.POST['password1'] == request.POST['password2']:
+#             try:
+#                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+#                 user.save()
+#                 login(request, user)
+#                 return redirect('home')
+#             except IntegrityError:
+#                 return render(request, 'reguser/reguser.html',
+#                               {'formuser': UserCreationForm(), 'error': 'Такой логин уже занят',
+#                                'page_name': 'Регистрация - выберите другой логин'})
+#         else:
+#             return render(request, 'reguser/reguser.html',
+#                           {'formuser': UserCreationForm(), 'error': 'Пароли не совпадают',
+#                            'page_name': 'Введите совпадающие пароли', })
 
 
 def loginuserView(request):
     if request.method == 'GET':
         form = AuthenticationForm()
-        return render(request, 'loginuser/login.html', {'formuser': form, 'page_name': 'Вход'})
+        return render(request, f'{app_name}/login.html', {'formuser': form, 'page_name': 'Вход'})
     else:
         form = AuthenticationForm(request.POST)
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -50,13 +50,13 @@ def loginuserView(request):
             login(request, user)
             return redirect('home')
         except ValueError:
-            return render(request, 'loginuser/login.html',
+            return render(request, f'{app_name}/login.html',
                           {'formuser': form, 'error': 'Неверный логин или пароль1', 'page_name': 'Вход'})
         except AttributeError:  # Альтернатива else
-            return render(request, 'loginuser/login.html',
+            return render(request, f'{app_name}/login.html',
                           {'formuser': form, 'error': 'Неверный логин или пароль2', 'page_name': 'Вход'})
     else:
-        return render(request, 'loginuser/login.html',
+        return render(request, f'{app_name}/login.html',
                       {'formuser': form, 'error': 'Неверный логин или пароль3', 'page_name': 'Вход'})
 
 

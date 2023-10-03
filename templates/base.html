@@ -38,8 +38,7 @@
                 {% if request.user.username %}
                     <a href="% url 'logoutuser' %}" class="link link-primary">Выход</a>
                 {% else %}
-                    <a href="{% url 'reguser' %}" class="link">Регистрация</a>
-                    <a href="% url 'login' %}" class="link link-primary">Вход</a>
+                    <a href="{% url 'loginuser' %}" class="link link-primary">Вход</a>
                 {% endif %}
                 <a href="{% url 'admin:index' %}" class="link">Админка</a>
         <!--        Добавить код, если пользователь авторизовался-->

@@ -32,7 +32,7 @@ urlpatterns = [
     path(f'{APP_NAMES.EVENTS}/', include(f'{APP_NAMES.EVENTS}.urls')),
     path(f'{APP_NAMES.PARTNERS}/', include(f'{APP_NAMES.PARTNERS}.urls')),
     path(f'{APP_NAMES.CONTESTS}/', include(f'{APP_NAMES.CONTESTS}.urls')),
-    path(f'{APP_NAMES.SIGN}/', include(f'{APP_NAMES.REG_USER}.urls')),
+    path(f'{APP_NAMES.LOGIN_USER}/', include(f'{APP_NAMES.LOGIN_USER}.urls')),
     path(f'{APP_NAMES.ISSUES}/', include(f'{APP_NAMES.ISSUES}.urls')),
 ]
 

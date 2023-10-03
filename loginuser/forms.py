@@ -8,6 +8,7 @@ class UserProfileForm(forms.ModelForm):
             'image_profile',
             'firstname',
             'secondname',
-            'age',
+            'birthday',
             'about',
+            'confirm_document'
         ]
