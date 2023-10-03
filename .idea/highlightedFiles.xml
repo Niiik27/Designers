@@ -6,6 +6,7 @@
       <node color="3" path="$PROJECT_DIR$/contests/templates" />
       <node color="4" path="$PROJECT_DIR$/contests/views.py" />
       <node color="1" path="$PROJECT_DIR$/Designers" />
+      <node color="1" path="$PROJECT_DIR$/home" />
       <node color="7" path="$PROJECT_DIR$/loginuser" />
       <node color="1" path="$PROJECT_DIR$/static" />
       <node color="1" path="$PROJECT_DIR$/templates" />
