@@ -22,6 +22,15 @@ def get_date(date):
     month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
            'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
 
+
+    # longest_length = max([len(s) for s in day_list])
+    # print(max([s for s in day_list if len(s) == longest_length], key=len))
+    #
+    # longest_length = max([len(s) for s in month_list])
+    # print(max([s for s in month_list if len(s) == longest_length], key=len))
+    #
+    # return 'двадацать четвёртое сентября 2023 года'#longest string
+
     date_list = date.split('.')
     return (day_list[int(date_list[0]) - 1] + ' ' +
         month_list[int(date_list[1]) - 1] + ' ' +
@@ -48,7 +57,7 @@ def parse_contests(url):
             response = requests.get(contestImgURL, stream=True)
             content = response.content
             contestImgBase64 = b64encode(content).decode('utf-8')
-
+            if not contestImgBase64: continue
             contestData['contestName'] = contestName
             contestData['contestRef'] = contestRef
             contestData['contestImg'] = contestImgURL

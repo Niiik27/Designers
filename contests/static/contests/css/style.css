@@ -28,7 +28,7 @@
 
 .card__img{
     width:245px;
-    height:auto;
+    height:245px;
     object-fit:cover;
     border-radius:16px;
     border: #343c3d solid 5px;
@@ -60,12 +60,13 @@
     background: #9b4235;
     border-radius:16px;
     padding: 10px 20px;
+    box-shadow: 3px 3px 10px #343c3d;
 }
 
 .card__date{
-    width:30%;
-    height: 25px;
-    min-width:220px;
+    width:350px;
+    height: 30px;
+    min-width:350px;
     border-radius: 16px;
     background-color: #142850;
     display:flex;
@@ -78,6 +79,7 @@
     color:#FFF;
     margin-left: 20px;
     box-shadow: 3px 3px 10px #343c3d;
+
 }
 
 .col-r{
