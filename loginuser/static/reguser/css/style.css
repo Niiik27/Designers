@@ -96,8 +96,6 @@ label{
 
 }
 
-
-
 .txt-input{
     border-radius: 10px;
     width:100%;
@@ -111,8 +109,10 @@ label{
 
 }
 
-.my_foto{
+.photo_img{
     display: flex;
+    justify-content: space-between;
+    align-items: start;
     width:100%;
     height:245px;
     object-fit:cover;

@@ -5,12 +5,14 @@
         <main>
             <div class="wrapper">
                 <h1 class="title title--h1">{{ page_name }}</h1>
-
+                        <div class="col-l">
+                            <img class="card__img" src="data:image/{{ photo_ext1 }};base64,{{ photo_img }}" alt = "Нет картинки" onerror ="this.onerror=null; this.src='{% static '/imgs/no_image.png' %}';">
+                        </div>
                 {% for contest in contests %}
 
                     <a href="{{ contest.contestRef }}"  class="card card-ref">
                         <div class="col-l">
-                            <img class="card__img" src="data:image/{{ contest.imgExt }};base64,{{ contest.contestImgBase64 }}" alt = "Нет картинки" onerror ="this.onerror=null; this.src='{% static 'contests/imgs/no_image.png' %}';">
+                            <img class="card__img" src="data:image/{{ contest.imgExt }};base64,{{ contest.contestImgBase64 }}" alt = "Нет картинки" onerror ="this.onerror=null; this.src='{% static '/imgs/no_image.png' %}';">
                         </div>
 
                         <div class="col-r">

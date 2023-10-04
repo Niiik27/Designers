@@ -1,18 +1,41 @@
 <!doctype html>
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static '' %}{{ page_style }}/css/style.css">
-    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-    <title>{{ page_name }}</title>
-    <div>{{ page_name }}</div>
-    <div>{{ page_style }}</div>
-</head>
-<body>
+        <main>
+            <div class="wrapper">
+                <h1 class="title title--h1">{{ page_name }}</h1>
 
-</body>
-</html>
+                {% for contest in contests %}
+
+                    <a href="{{ contest.contestRef }}"  class="card card-ref">
+                        <div class="col-l">
+                            <img class="card__img" src="data:image/{{ contest.imgExt }};base64,{{ contest.contestImgBase64 }}" alt = "Нет картинки" onerror ="this.onerror=null; this.src='{% static '/imgs/no_image.png' %}';">
+                        </div>
+
+                        <div class="col-r">
+                            {% if contest.freeFlag %}
+                                <div class="card__title">
+                            {% else %}
+                                <div class="card__title2">
+                            {% endif %}
+                                <h5 class="title">{{ contest.contestName }}</h5>
+                                <p class = "card__date">{{ contest.regData }}</p>
+
+
+                            </div>
+
+                            <div class="card__desc">{{ desc }}
+                            {% for desc in contest.contestDesc %}
+                                <div class="card__desc__row">{{ desc }}</div>
+                            {% endfor %}
+                            </div>
+
+
+                        </div>
+                    </a>
+                    <hr size=3px width=100% align="center" color="#343c3d">
+                {% endfor %}
+            </div>
+        </main>
+{% endblock %}
