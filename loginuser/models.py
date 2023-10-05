@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     lastname = models.CharField('Фамилия', max_length=len_fields, blank=True)
     birth = models.DateField('Дата рождения', blank=True)
     e_mail = models.CharField('Почта', max_length=len_fields, blank=True)
-    phone = models.IntegerField('Телефон', blank=True)
+    phone = models.BigIntegerField('Телефон', blank=True)
     sotial_vk = models.CharField('Вконтакте', max_length=len_fields, blank=True)
     sotial_ok = models.CharField('Одноклассники', max_length=len_fields, blank=True)
     sotial_inst = models.CharField('Инста', max_length=len_fields, blank=True)
