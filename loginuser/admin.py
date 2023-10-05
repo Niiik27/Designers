@@ -2,5 +2,5 @@ from django.contrib import admin
 from .models import UserProfile
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user','firstname','secondname','birthday')
-    search_field = ('user__username','firstname','secondname','birthday')
+    list_display = ('username','firstname','lastname','birth')
+    search_field = ('username','firstname','lastname','birth')

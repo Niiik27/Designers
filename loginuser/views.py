@@ -1,8 +1,6 @@
+from pprint import pprint
 
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
-
-
-
 
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
@@ -10,6 +8,7 @@ from django.contrib.auth.models import User  # подключение Базы �
 from django.contrib.auth import login, authenticate, logout
 from django.db import IntegrityError
 from .forms import UserProfileForm
+from .models import UserProfile
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -19,12 +18,29 @@ verbose_name = VERBOSE_APP_NAMES.LOGIN_USER
 
 def reguserView(request):
     if request.method == "GET":
-        return render(request, 'reguser/reguser.html', {'page_name':VERBOSE_APP_NAMES.REG_USER,'page_style':APP_NAMES.REG_USER})
+        return render(request, f'{APP_NAMES.REG_USER}/{APP_NAMES.REG_USER}.html',
+                      {'page_name': VERBOSE_APP_NAMES.REG_USER, 'page_style': APP_NAMES.REG_USER})
     else:
+        print(
+            "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
         if request.POST['password1'] == request.POST['password2']:
             try:
+                print(
+                    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                print(
+                    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+                print(User)
                 user.save()
+                print(UserProfile.__dict__)
+                print(type(request.POST))
+                print(request.POST)
+                #photo_url = photo_url, image = image, firstname = firstname, lastname = lastname, birth = birth, e_mail = e_mail, phone = phone, sotial_vk = sotial_vk, sotial_ok = sotial_ok, sotial_inst = sotial_inst, sotial_tube = sotial_tube, username = username, password = password, about = about, user = user
+                userProfile = UserProfile.create_user_profile(request.POST)
+
+                print(
+                    "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww")
+
                 login(request, user)
                 return redirect('home')
             except IntegrityError:
@@ -39,8 +55,7 @@ def reguserView(request):
 
 def loginuserView(request):
     if request.method == 'GET':
-        form = AuthenticationForm()
-        return render(request, f'{app_name}/login.html', {'formuser': form, 'page_name':verbose_name,'page_style':app_name})
+        return render(request, f'{app_name}/{app_name}.html', {'page_name': verbose_name, 'page_style': app_name})
     else:
         form = AuthenticationForm(request.POST)
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -65,9 +80,9 @@ def logoutuserView(request):
     return redirect('home')
 
 
-def profileView(request,user_id):
-    # user_profile = request.user.userprofile
-    return render(request, 'profile/profile.html', {'user_profile': 'user_profile'})
+def profileView(request):
+    user_profile = request.user
+    return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html', {user_profile: 'user_profile'})
 
 
 def profileupView(request):
