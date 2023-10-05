@@ -65,9 +65,9 @@ def logoutuserView(request):
     return redirect('home')
 
 
-def profileView(request):
-    user_profile = request.user.userprofile
-    return render(request, 'profile/profile.html', {'user_profile': user_profile})
+def profileView(request,user_id):
+    # user_profile = request.user.userprofile
+    return render(request, 'profile/profile.html', {'user_profile': 'user_profile'})
 
 
 def profileupView(request):

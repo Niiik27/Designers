@@ -5,10 +5,18 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = [
-            'image_profile',
+            'photo_url',
+            'image',
             'firstname',
-            'secondname',
-            'birthday',
+            'lastname',
+            'birth',
+            'e_mail',
+            'phone',
+            'sotial_vk',
+            'sotial_ok',
+            'sotial_inst',
+            'sotial_tube',
+            'username',
+            'password',
             'about',
-            'confirm_document'
         ]
