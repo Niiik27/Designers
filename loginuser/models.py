@@ -27,7 +27,7 @@ class UserProfile(models.Model):
         for key in d:
 
             if key != 'csrfmiddlewaretoken' and key!='image' and key!='birth':
-                print(key)
+                print(key,d[key])
                 userProfile.__setattr__(key,d[key])
         # userProfile = cls(photo_url=POST['photo_url'],image=POST['image'],firstname=POST['firstname'],lastname=POST['lastname'],birth=POST['birth'],e_mail=POST['e_mail'],phone=POST['phone'],sotial_vk=POST['sotial_vk'],sotial_ok=POST['sotial_ok'],sotial_inst=POST['sotial_inst'],sotial_tube=POST['sotial_tube'],username=POST['username'],password=POST['password'],about=POST['about'],user=POST['user'])
 
