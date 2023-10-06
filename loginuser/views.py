@@ -3,7 +3,7 @@ from io import BytesIO
 import requests
 from PIL import Image
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
-
+from django.db import models
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User  # подключение Базы данных по умолчанию
@@ -29,6 +29,7 @@ def save_image_from_url(url):
         img.thumbnail(new_size)
 
         pathURL = url.split("?")[0]
+        pprint(pathURL)
         imgExt = pathURL[pathURL.rfind('.') + 1:len(pathURL)]
         if imgExt.lower() == 'jpg':
             imgExt = 'jpeg'
@@ -37,7 +38,7 @@ def save_image_from_url(url):
         # Преобразуем изображение в байты
         buffer = BytesIO()
         img.save(buffer, format=imgExt)
-        image_file = ContentFile(buffer.getvalue())
+        image_file = ContentFile(buffer.getvalue(),name=filename)
 
         # Сохраняем изображение в поле ImageField
         # self.image.save(filename, image_file)
@@ -53,7 +54,7 @@ def reguserView(request):
                 user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
                 user.save()
                 # userProfile = UserProfile.create_user_profile(request.POST)
-
+                print(request.POST['photo_url'])
                 userProfile = UserProfile(
                 photo_url = request.POST['photo_url'],
                 image = save_image_from_url(request.POST['photo_url']),
@@ -69,6 +70,7 @@ def reguserView(request):
                 username = request.POST['username'],
                 password = request.POST['password1'],
                 about = request.POST['about'],
+                user = user,
                 )
 
 
