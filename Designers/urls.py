@@ -24,6 +24,7 @@ import home.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(f'{APP_NAMES.HOME}.urls')),
+
     path(f'{APP_NAMES.BLOG}/', include(f'{APP_NAMES.BLOG}.urls')),
     path(f'{APP_NAMES.PORTFOLIO}/', include(f'{APP_NAMES.PORTFOLIO}.urls')),
     path(f'{APP_NAMES.USER_MESSAGES}/', include(f'{APP_NAMES.USER_MESSAGES}.urls')),

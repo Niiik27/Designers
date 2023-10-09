@@ -51,10 +51,8 @@ def reguserView(request):
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
-                user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                 user.save()
-                # userProfile = UserProfile.create_user_profile(request.POST)
-                print(request.POST['photo_url'])
                 userProfile = UserProfile(
                 photo_url = request.POST['photo_url'],
                 image = save_image_from_url(request.POST['photo_url']),
@@ -73,23 +71,21 @@ def reguserView(request):
                 user = user,
                 )
 
-
-
-                print("3" * 150)
                 userProfile.save()
-                print("4"*150)
-
                 login(request, user)
-                print("5" * 255)
-                return redirect('home')
+                return redirect(APP_NAMES.HOME+"/"+user.username)
+                return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
+                              {'userprofile': userProfile,
+                               'page_name': 'Профиль пользователя', 'page_style': app_name})
+
             except IntegrityError as e:
                 error_message = str(e)
                 print(f'Произошла ошибка: {error_message}')
-                return render(request, 'reguser/reguser.html',
+                return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
                               {'formuser': UserCreationForm(), 'error': 'Такой логин уже занят',
                                'page_name': 'Регистрация - выберите другой логин', 'page_style': app_name})
         else:
-            return render(request, 'reguser/reguser.html',
+            return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
                           {'formuser': UserCreationForm(), 'error': 'Пароли не совпадают',
                            'page_name': 'Введите совпадающие пароли', 'page_style': app_name, })
 
