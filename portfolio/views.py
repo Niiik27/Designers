@@ -5,4 +5,9 @@ app_name = APP_NAMES.PORTFOLIO
 verbose_name = VERBOSE_APP_NAMES.PORTFOLIO
 
 def portfolioView(request):
+    print(request)
+    print(type(request))
+    print(dir(request))
+    print(request.user.id)
+    print(dir(request.user))# Откуда же здесь берется юзер?
     return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':verbose_name,'page_style':app_name})

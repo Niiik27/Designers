@@ -1,10 +1,11 @@
+from datetime import date
 from pprint import pprint
 from io import BytesIO
 import requests
 from PIL import Image
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 from django.db import models
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User  # подключение Базы данных по умолчанию
 from django.contrib.auth import login, authenticate, logout
@@ -29,7 +30,6 @@ def save_image_from_url(url):
         img.thumbnail(new_size)
 
         pathURL = url.split("?")[0]
-        pprint(pathURL)
         imgExt = pathURL[pathURL.rfind('.') + 1:len(pathURL)]
         if imgExt.lower() == 'jpg':
             imgExt = 'jpeg'
@@ -73,7 +73,7 @@ def reguserView(request):
 
                 userProfile.save()
                 login(request, user)
-                return redirect(APP_NAMES.HOME+"/"+user.username)
+                return redirect("/"+user.username)
                 return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
                               {'userprofile': userProfile,
                                'page_name': 'Профиль пользователя', 'page_style': app_name})
@@ -117,10 +117,16 @@ def logoutuserView(request):
     return redirect('home')
 
 
-def profileView(request):
-    user_profile = request.user
-    return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html', {user_profile: 'user_profile'})
+def profileView(request, username):
+    user = get_object_or_404(UserProfile, username = username)
+    today = date.today()
+    age = today.year - user.birth.year - ((today.month, today.day) < (user.birth.month, user.birth.day))
+    return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE, 'age':age})
 
+
+def profileView1(request, username):
+    user = get_object_or_404(UserProfile, username = username)
+    return render(request, f'./{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE})
 
 def profileupView(request):
     user_profile = request.user.userprofile

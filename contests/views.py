@@ -52,7 +52,8 @@ def parse_contests(url):
             contestName = " ".join(tab.h3.text.split())
             contestRef = f"https://www.architime.ru/{tab.h3.a.get('href')}"
             contestImgURL = f"https://www.architime.ru/{tab.td.a.img.get('src')}"
-            imgExt = contestImgURL[contestImgURL.rfind('.') + 1:len(contestImgURL)]
+            pathURL = contestImgURL.split("?")[0]
+            imgExt = pathURL[pathURL.rfind('.') + 1:len(pathURL)]
 
             response = requests.get(contestImgURL, stream=True)
             content = response.content

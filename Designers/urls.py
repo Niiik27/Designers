@@ -20,10 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 from APP_NAMES import APP_NAMES
 import home.views
-
+from loginuser.views import profileView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(f'{APP_NAMES.HOME}.urls')),
+
 
     path(f'{APP_NAMES.BLOG}/', include(f'{APP_NAMES.BLOG}.urls')),
     path(f'{APP_NAMES.PORTFOLIO}/', include(f'{APP_NAMES.PORTFOLIO}.urls')),
@@ -35,7 +36,7 @@ urlpatterns = [
     path(f'{APP_NAMES.CONTESTS}/', include(f'{APP_NAMES.CONTESTS}.urls')),
     path(f'{APP_NAMES.LOGIN_USER}/', include(f'{APP_NAMES.LOGIN_USER}.urls')),
     path(f'{APP_NAMES.ISSUES}/', include(f'{APP_NAMES.ISSUES}.urls')),
-    # path('<str:username>/', include(f'{APP_NAMES.LOGIN_USER}.urls')),
+    path('<str:username>/', profileView, name='username'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -6,13 +6,21 @@
 
         <section class="hero">
             <div class="wrapper hero-wrapper">
-                <img src="" alt="" class="my_image hero__my_image">
-                <span class="first_name">Имя: Текст рыба</span>
-                <span class="last_name">Фамилия: Текст рыба</span>
-                <span class="my_age">Дата рождения 27.10.1980(42)</span>
-                 <span class="my_age">{{ userprofile.password }}</span>
-                <p class="my_desc">О себе: </p>
-                <p class="my_desc">О себе: </p>
+                <img src="{{ user.image.url }}" alt="" class="my_image hero__my_image">
+                <span class="my_age">Логин: {{ user.username }}, Пароль: {{ user.password }}</span>
+
+                <span class="first_name">Имя: {{ user.firstname }}</span>
+                <span class="last_name">Фамилия: {{ user.lastname }}</span>
+                <span class="my_desc">Дата рождения: {{ user.birth }}, Возраст: {{ age }}</span>
+                <span class="my_desc">Почта: {{ user.e_mail }}</span>
+                <span class="my_desc">Телефон: {{ user.phone }}</span>
+                <a href="{% url 'portfolio' %}">Посмотреть работы</a>
+                <p class="first_name">Соцсети:</p>
+                <p class="my_desc">Вконтакте: {{ user.social_vk }}</p>
+                <p class="my_desc">Одноклассники: {{ user.social_ok }}</p>
+                <p class="my_desc">Нельзяграм: {{ user.social_inst }}</p>
+                <p class="my_desc">Какойнибудь тюб: {{ user.social_tube }}</p>
+                <p class="my_desc">О себе: {{ user.about }}</p>
             </div>
         </section>
 
