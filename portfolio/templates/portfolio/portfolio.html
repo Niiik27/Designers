@@ -24,6 +24,7 @@
         <section class="hero">
         <form class="hero card" action="{% url 'portfolio' %} " method="POST">
             {% csrf_token %}
+
             <label for="artwork">Загрузите новое изображение</label>
             <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
 
