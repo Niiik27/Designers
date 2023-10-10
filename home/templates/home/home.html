@@ -6,14 +6,22 @@
         {% if request.user.username %}
         <section class="hero">
             <div class="wrapper hero-wrapper">
-                <img src="" alt="" class="my_image hero__my_image">
-                <span class="first_name">Имя: Текст рыба</span>
-                <span class="last_name">Фамилия: Текст рыба</span>
-                <span class="my_age">Дата рождения 27.10.1980(42)</span>
-                <span class="my_age">{{ user.username }}</span>
-                <img src="{{ user.image.url }}" alt="">
-                <p class="my_desc">О себе: </p>
-                <p class="my_desc">О себе: </p>
+                <img src="{{ userprofile.image.url }}" alt="" class="my_image hero__my_image">
+                <span class="my_age">Логин: {{ userprofile.username }}, Пароль: {{ user.password }}</span>
+
+                <span class="first_name">Имя: {{ userprofile.firstname }}</span>
+                <span class="last_name">Фамилия: {{ userprofile.lastname }}</span>
+                <span class="my_desc">Дата рождения: {{ userprofile.birth }}, Возраст: {{ age }}</span>
+                <span class="my_desc">Почта: {{ userprofile.e_mail }}</span>
+                <span class="my_desc">Телефон: {{ userprofile.phone }}</span>
+                <a href="{% url 'portfolio' %}">Посмотреть работы</a>
+                <a href="{% url 'blog' %}">Блог</a>
+                <p class="first_name">Соцсети:</p>
+                <p class="my_desc">Вконтакте: {{ userprofile.social_vk }}</p>
+                <p class="my_desc">Одноклассники: {{ userprofile.social_ok }}</p>
+                <p class="my_desc">Нельзяграм: {{ userprofile.social_inst }}</p>
+                <p class="my_desc">Какойнибудь тюб: {{ userprofile.social_tube }}</p>
+                <p class="my_desc">О себе: {{ userprofile.about }}</p>
             </div>
         </section>
         {% else %}

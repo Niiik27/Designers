@@ -1,18 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static '' %}{{ page_style }}/css/style.css">
-    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-    <title>{{ page_name }}</title>
-    <div>{{ page_name }}</div>
-    <div>{{ page_style }}</div>
-</head>
-<body>
+    <main>
+    {% if portfolio %}
+        <section class="hero">
+        {% for artwork in portfolio %}
+            <div class="card">
+                <div class="col-l">
+                    <img class="card__img" src="{{ artwork.image.url }}" alt="">
+                </div>
 
-</body>
-</html>
+                <div class="col-r">
+                    <a class="title card__title" href="{% url 'artwork' artwork.id %}">{{ artwork.title }}</a>
+                    <p class="card__desc">{{ artwork.desc|truncatechars:450 }}</p>
+                    <p class = "card__date">{{ artwork.date }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </section>
+        {% endif %}
+
+        <section class="hero">
+        <form class="hero card" action="{% url 'portfolio' %} " method="POST">
+            {% csrf_token %}
+            <label for="artwork">Загрузите новое изображение</label>
+            <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
+
+            <label for="">Название</label>
+            <input class="txt-input" type="text" name="title" value="diz_nik">
+            <label for="">Описание</label>
+            <input class="txt-input" type="text" name="desc" value="diz_nik">
+            <label for="">Дата публикации</label>
+            <input class="txt-input" type="text" name="img_data" value="2023-08-15">
+            <label for="">Описание</label>
+            <input class="txt-input" type="text" name="partners" value="diz_nik">
+            <button class="button" type = "submit">Добавить</button>
+        </form>
+        </section>
+    </main>
+{% endblock %}

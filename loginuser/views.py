@@ -74,19 +74,17 @@ def reguserView(request):
                 userProfile.save()
                 login(request, user)
                 return redirect("/"+user.username)
-                return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
-                              {'userprofile': userProfile,
-                               'page_name': 'Профиль пользователя', 'page_style': app_name})
+
 
             except IntegrityError as e:
                 error_message = str(e)
                 print(f'Произошла ошибка: {error_message}')
                 return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
-                              {'formuser': UserCreationForm(), 'error': 'Такой логин уже занят',
+                              {'error': 'Такой логин уже занят',
                                'page_name': 'Регистрация - выберите другой логин', 'page_style': app_name})
         else:
             return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
-                          {'formuser': UserCreationForm(), 'error': 'Пароли не совпадают',
+                          {'error': 'Пароли не совпадают',
                            'page_name': 'Введите совпадающие пароли', 'page_style': app_name, })
 
 
@@ -94,22 +92,21 @@ def loginuserView(request):
     if request.method == 'GET':
         return render(request, f'{app_name}/{app_name}.html', {'page_name': verbose_name, 'page_style': app_name})
     else:
-        form = AuthenticationForm(request.POST)
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
 
-    if user is not None:
-        try:
-            login(request, user)
-            return redirect('home')
-        except ValueError:
-            return render(request, f'{app_name}/login.html',
-                          {'formuser': form, 'error': 'Неверный логин или пароль1', 'page_name': 'Вход', 'page_style': app_name})
-        except AttributeError:  # Альтернатива else
-            return render(request, f'{app_name}/login.html',
-                          {'formuser': form, 'error': 'Неверный логин или пароль2', 'page_name': 'Вход', 'page_style': app_name})
-    else:
-        return render(request, f'{app_name}/login.html',
-                      {'formuser': form, 'error': 'Неверный логин или пароль3', 'page_name': 'Вход', 'page_style': app_name})
+        if user is not None:
+            try:
+                login(request, user)
+                return redirect("/"+user.username)
+            except ValueError:
+                return render(request, f'{app_name}/{app_name}.html',
+                              {'error': 'Неверный логин или пароль1', 'page_name': 'Вход', 'page_style': app_name})
+            except AttributeError:  # Альтернатива else
+                return render(request, f'{app_name}/{app_name}.html',
+                              {'error': 'Неверный логин или пароль2', 'page_name': 'Вход', 'page_style': app_name})
+        else:
+            return render(request, f'{app_name}/{app_name}.html',
+                          {'error': 'Неверный логин или пароль3', 'page_name': 'Вход', 'page_style': app_name})
 
 
 def logoutuserView(request):
@@ -121,7 +118,9 @@ def profileView(request, username):
     user = get_object_or_404(UserProfile, username = username)
     today = date.today()
     age = today.year - user.birth.year - ((today.month, today.day) < (user.birth.month, user.birth.day))
-    return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE, 'age':age})
+    print(age)
+    # return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE, 'age':age})
+    return render(request, f'{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',{'userprofile':user, 'page_name':VERBOSE_APP_NAMES.HOME,'page_style':APP_NAMES.HOME, 'age':age})
 
 
 def profileView1(request, username):

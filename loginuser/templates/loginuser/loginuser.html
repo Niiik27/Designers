@@ -3,17 +3,22 @@
 {% block content %}
 {% load static %}
     <main>
+
         <section class="hero">
             <a href="{% url 'reguser' %}">Зарегистрироваться</a>
             <a href="#">Войти при помощи ВК</a>
         </section>
-        <section class="hero">
-            <label for="">Логин</label>
-            <input class="txt-input" type="text" name="login" value="diz_nik">
-            <label for="">Пароль</label>
-            <input class="txt-input" type="text" name="password" value="diz_nik">
-            <a href="#">Ничерта не помню</a>
-        </section>
+        <form class="card" action="{% url 'loginuser' %} " method="POST">
+            {% csrf_token %}
+            <section class="hero">
+                <label for="">Логин</label>
+                <input class="txt-input" type="text" name="username" value="diz_nik">
+                <label for="">Пароль</label>
+                <input class="txt-input" type="text" name="password" value="diz_nik">
+                <a href="#">Ничерта не помню</a>
+            </section>
+            <button class="button" type = "submit">Отправить</button>
+        </form>
     </main>
 {% endblock %}
 

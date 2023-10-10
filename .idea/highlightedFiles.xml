@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectTreeColorHighlighter">
     <files>
+      <node color="5" path="$PROJECT_DIR$/blog" />
       <node color="1" path="$PROJECT_DIR$/Designers" />
       <node color="1" path="$PROJECT_DIR$/home" />
+      <node color="3" path="$PROJECT_DIR$/loginuser" />
       <node color="1" path="$PROJECT_DIR$/media" />
       <node color="4" path="$PROJECT_DIR$/portfolio" />
       <node color="1" path="$PROJECT_DIR$/static" />

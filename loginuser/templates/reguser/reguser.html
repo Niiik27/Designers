@@ -4,65 +4,64 @@
     <main>
 
         <form class="card" action="{% url 'reguser' %} " method="POST">
-                {% csrf_token %}
-                <h1 class="head_1">{{ page_name }}</h1>
-                <div class="inputs">
-                    <div class="fields">
-                        <label for="">Ссылка на ваше фото (из соцсети)</label>
-                        <input class="txt-input" type="url" name="photo_url" id="img_link" value="https://sun9-63.userapi.com/impg/bMIyE8QLzl5_n-RZ4vRwkzCNNScP36A968Ws1Q/cC2oj6LAsxo.jpg?size=1212x907&quality=95&sign=9cda6e77515b1629888f9f5af2875773&type=album">
-                        <img src="https://abrakadabra.fun/uploads/posts/2022-03/1647178918_11-abrakadabra-fun-p-dzhango-osvobozhdennii-art-25.jpg" alt="No Image" id="profile_img" class="photo_img">
-                        <label for="">Имя</label>
-                        <input class="txt-input" type="text" name="firstname" value="Николай">
-                        <label for="">Фамилия</label>
-                        <input class="txt-input" type="text" name="lastname" value="Меньшиков">
-                        <label for="">Дата рождения</label>
-                        <input class="txt-input" type="date" name="birth" value="1980-10-27">
-                        <label for="">Почта</label>
-                        <input class="txt-input" type="email" name="e_mail" value="menshikovn@yandex.ru">
-                        <label for="">Телефон</label>
-                        <input class="txt-input"  type="tel" pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" name="phone" value="79539863165"  placeholder="+7 (___) ___-__-__">
+            {% csrf_token %}
+            <h1 class="head_1">{{ page_name }}</h1>
+            <div class="inputs">
+                <div class="fields">
+                    <label for="">Ссылка на ваше фото (из соцсети)</label>
+                    <input class="txt-input" type="url" name="photo_url" id="img_link" value="https://sun9-63.userapi.com/impg/bMIyE8QLzl5_n-RZ4vRwkzCNNScP36A968Ws1Q/cC2oj6LAsxo.jpg?size=1212x907&quality=95&sign=9cda6e77515b1629888f9f5af2875773&type=album">
+                    <img src="https://abrakadabra.fun/uploads/posts/2022-03/1647178918_11-abrakadabra-fun-p-dzhango-osvobozhdennii-art-25.jpg" alt="No Image" id="profile_img" class="photo_img">
+                    <label for="">Имя</label>
+                    <input class="txt-input" type="text" name="firstname" value="Николай">
+                    <label for="">Фамилия</label>
+                    <input class="txt-input" type="text" name="lastname" value="Меньшиков">
+                    <label for="">Дата рождения</label>
+                    <input class="txt-input" type="date" name="birth" value="1980-10-27">
+                    <label for="">Почта</label>
+                    <input class="txt-input" type="email" name="e_mail" value="menshikovn@yandex.ru">
+                    <label for="">Телефон</label>
+                    <input class="txt-input"  type="tel" pattern="\+7\s?[\(]{0,1}9[0-9]{2}[\)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2}" name="phone" value="79539863165"  placeholder="+7 (___) ___-__-__">
 <!--"[0-9]{10}"-->
-                        <label for="">Логин</label>
-                        <input class="txt-input" type="text" name="username" value="Niolay">
-                        <label for="">Пароль</label>
-                        <input class="txt-input" type="text" name="password1" value="123">
-                        <input class="txt-input" type="text" name="password2" value="123">
-                        <label for="">Ваша цель</label>
-                        <select name="purpose" class="txt-input">
-                            <option selected value="diz">Проектант</option>
-                            <option value="sailor">Продавец</option>
-                            <option value="3d_maker">3D-моделлер</option>
-                            <option value="client" selected>Просто спросить</option>
-                           </select>
-                        <label for="">Ваши соцсети:</label>
-                        <label for="">Вконтакте:</label>
-                        <input class="txt-input" type="text" name="social_vk" value="Python">
-                        <label for="">Одноклассники:</label>
-                        <input class="txt-input" type="text" name="social_ok" value="SQL">
-                        <label for="">Нельзяграмм:</label>
-                        <input class="txt-input" type="text" name="social_inst" value="JS">
-                        <label for="">Дзен:</label>
-                        <input class="txt-input" type="text" name="social_z" value="CSS">
-                        <label for="">X - tube:</label>
-                        <input class="txt-input" type="text" name="social_tube" value="Java">
-                    </div>
-                    <div class="about">
+                    <label for="">Логин</label>
+                    <input class="txt-input" type="text" name="username" value="Niolay">
+                    <label for="">Пароль</label>
+                    <input class="txt-input" type="text" name="password1" value="123">
+                    <input class="txt-input" type="text" name="password2" value="123">
+                    <label for="">Ваша цель</label>
+                    <select name="purpose" class="txt-input">
+                        <option selected value="diz">Проектант</option>
+                        <option value="sailor">Продавец</option>
+                        <option value="3d_maker">3D-моделлер</option>
+                        <option value="client" selected>Просто спросить</option>
+                       </select>
+                    <label for="">Ваши соцсети:</label>
+                    <label for="">Вконтакте:</label>
+                    <input class="txt-input" type="text" name="social_vk" value="Python">
+                    <label for="">Одноклассники:</label>
+                    <input class="txt-input" type="text" name="social_ok" value="SQL">
+                    <label for="">Нельзяграмм:</label>
+                    <input class="txt-input" type="text" name="social_inst" value="JS">
+                    <label for="">Дзен:</label>
+                    <input class="txt-input" type="text" name="social_z" value="CSS">
+                    <label for="">X - tube:</label>
+                    <input class="txt-input" type="text" name="social_tube" value="Java">
+                </div>
+                <div class="about">
 
-                        <label for="">Расскажите о себе:</label>
-                        <textarea class="area-container" name="about">
-            Действие фильма начинается в 1858 году, за два года до начала Гражданской войны.
-            Двое братьев-работорговцев гонят купленных ими на аукционе в Техасе пятерых чернокожих
-            рабов-мужчин на Дальний Юг. Среди рабов находится Джанго, который в наказание за побег
-            был высечен кнутом и продан предыдущим хозяином на аукционе отдельно от его любимой жены
-            Брумхильды. Ночью в лесу группа встречается с доктором Кингом Шульцем, иммигрантом из
-            Германии и охотником за головами, использующим свою бывшую профессию дантиста[11][12]
-            как прикрытие. Шульц хочет выкупить Джанго и, получив отказ, убивает одного из братьев
-            Спек, а второго со сломанной ногой оставляет на растерзание освобождённым рабам.
-                        </textarea>
-                    </div>
-
-               </div>
-                <button class="button" type = "submit">Отправить</button>
+                    <label for="">Расскажите о себе:</label>
+                    <textarea class="area-container" name="about">
+                        Действие фильма начинается в 1858 году, за два года до начала Гражданской войны.
+                        Двое братьев-работорговцев гонят купленных ими на аукционе в Техасе пятерых чернокожих
+                        рабов-мужчин на Дальний Юг. Среди рабов находится Джанго, который в наказание за побег
+                        был высечен кнутом и продан предыдущим хозяином на аукционе отдельно от его любимой жены
+                        Брумхильды. Ночью в лесу группа встречается с доктором Кингом Шульцем, иммигрантом из
+                        Германии и охотником за головами, использующим свою бывшую профессию дантиста[11][12]
+                        как прикрытие. Шульц хочет выкупить Джанго и, получив отказ, убивает одного из братьев
+                        Спек, а второго со сломанной ногой оставляет на растерзание освобождённым рабам.
+                    </textarea>
+                </div>
+           </div>
+            <button class="button" type = "submit">Отправить</button>
         </form>
     </main>
         <script src="{% static '' %}{{ page_style }}/js/script.js"></script>
