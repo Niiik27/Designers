@@ -1,7 +1,7 @@
 from django.db import models
 
 from django.db import models
-
+from APP_NAMES import APP_NAMES,VERBOSE_APP_NAMES
 
 class Article(models.Model):
     title = models.CharField('Заголовок',max_length=15)  # Ограниченная строка
@@ -12,6 +12,6 @@ class Article(models.Model):
     def __str__(self):
         return f"{self.title} | {self.date}"
     class Meta:
-        verbose_name = 'readable'
-        verbose_name_plural = 'Статьи'
+        verbose_name = APP_NAMES.ARTICLES
+        verbose_name_plural = VERBOSE_APP_NAMES.ARTICLES
 

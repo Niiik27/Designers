@@ -14,6 +14,8 @@ class APP_NAMES(ABC):
     USER_PROFILE = 'userprofile'
     PORTFOLIO = 'portfolio'
     BLOG = 'blog'
+    ARTICLES = 'articles'
+    ARTICLE = 'article'
     USER_MESSAGES = 'usermessages'
 
     STANDARDS = 'standards'
@@ -39,6 +41,8 @@ class VERBOSE_APP_NAMES(APP_NAMES):
     USER_PROFILE = u'Профиль'
     PORTFOLIO = u'Портфолио'
     BLOG = u'Блог'
+    ARTICLES = u'Статьи'
+    ARTICLE = u'Статья'
     USER_MESSAGES = u'Сообщения'
 
     STANDARDS = u'Нормативы'
