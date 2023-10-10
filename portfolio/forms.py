@@ -5,7 +5,7 @@ class ArtworkForm(forms.ModelForm):
     class Meta:
         model = Artwork
         fields = [
-            'username',
+            'user',
             'title',
             'desc',
             'date',

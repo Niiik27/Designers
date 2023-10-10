@@ -1,6 +1,4 @@
 from django.db import models
-
-from django.db import models
 from APP_NAMES import APP_NAMES,VERBOSE_APP_NAMES
 
 class Article(models.Model):

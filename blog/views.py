@@ -5,7 +5,8 @@ from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 app_name = APP_NAMES.BLOG
 verbose_name = VERBOSE_APP_NAMES.BLOG
 def blogView(request):
-    return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':verbose_name,'page_style':app_name})
+    articles = Article.objects.all()
+    return render(request, template_name=f'./{app_name}/{app_name}.html', context={'articles': articles, 'page_name':verbose_name,'page_style':app_name})
 
 def detailView(request, article_id):
     article = get_object_or_404(Article, pk = article_id)

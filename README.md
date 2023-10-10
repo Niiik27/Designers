@@ -115,6 +115,7 @@ input type="text" name="from_form_submit_var_in_name_attr"
 
 #### py manage.py migrate
 #### py manage.py makemigrations  
+#### py manage.py migrate
 <span style="color:red">Создать суперпользователя получиться только после выполнения двух верхних команд </span>.
 #### py manage.py createsuperuser  
 там попросят указать почту логин и пароль админа - следовать инструкции<br>
