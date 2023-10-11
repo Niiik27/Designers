@@ -4,19 +4,22 @@
 {% load static %}
     <main>
     {% if portfolio %}
-        <section class="hero">
+        <section class="thumbs">
         {% for artwork in portfolio %}
-            <div class="card">
-                <div class="col-l">
-                    <img class="card__img" src="{{ artwork.image.url }}" alt="">
-                </div>
+<!--            <div class="card">-->
+                <a class="thumb__block" href="{{ artwork.url }}">
+                    <img class="thumb__img" src="{{ artwork.image.url }}" alt="">
+                    <span class="thumb__txt">{{ artwork.title }}</span>
 
-                <div class="col-r">
-                    <a class="title card__title" href="% url 'artwork' artwork.id %}">{{ artwork.title }}</a>
-                    <p class="card__desc">{{ artwork.desc|truncatechars:450 }}</p>
-                    <p class = "card__date">{{ artwork.date }}</p>
-                </div>
-            </div>
+<!--                    <span class="thumb__txt">{{ artwork.desc|truncatechars:20 }}</span>-->
+                </a>
+
+<!--                <div class="col-r">-->
+<!--                    <a class="title card__title" href="% url 'portfolio' artwork.id %}">{{ artwork.title }}</a>-->
+<!--                    <p class="card__desc">{{ artwork.desc|truncatechars:450 }}</p>-->
+<!--                    <p class = "card__date">{{ artwork.date }}</p>-->
+<!--                </div>-->
+<!--            </div>-->
         {% endfor %}
         </section>
         {% endif %}
