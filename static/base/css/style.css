@@ -42,7 +42,7 @@ body{
     width: 25%;
     justify-content:space-between;
     align-items: center;
-    background: #1332ff;
+    /*background: #1332ff;*/
     }
 
 
@@ -89,7 +89,7 @@ nav > div > .link{
 .info-block{
     display:flex;
     flex-direction: row;
-    background: #55dc38;
+    /*background: #55dc38;*/
     width:65%;
     justify-content:space-between;
     align-items: center;
@@ -98,7 +98,7 @@ nav > div > .link{
 .base-block{
     display:flex;
     flex-direction: row;
-    background: #f5d926;
+    /*background: #f5d926;*/
     width:25%;
     justify-content:space-between;
     align-items: center;
@@ -111,9 +111,9 @@ nav > div > .link{
     width:60%;
     justify-content: space-between;
     align-items: center;
-    background: #f54706;
+    /*background: #f54706;*/
 }
 .logo{
-    background: #bd1ae8;
+    /*background: #bd1ae8;*/
     width:10%;
 }

@@ -22,10 +22,10 @@
         {% endif %}
 
         <section class="hero">
-        <form class="hero card" action="{% url 'portfolio' %} " method="POST">
+        <form class="hero card" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-
-            <label for="artwork">Загрузите новое изображение</label>
+            {{ form.as_p }}
+<!--            <label for="artwork">Загрузите новое изображение</label>
             <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
 
             <label for="">Название</label>
@@ -35,7 +35,7 @@
             <label for="">Дата публикации</label>
             <input class="txt-input" type="text" name="img_data" value="2023-08-15">
             <label for="">Описание</label>
-            <input class="txt-input" type="text" name="partners" value="diz_nik">
+            <input class="txt-input" type="text" name="partners" value="diz_nik">-->
             <button class="button" type = "submit">Добавить</button>
         </form>
         </section>
