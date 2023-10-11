@@ -11,7 +11,7 @@ def user_directory_path(instance, filename):
     # Возвращаем путь сохранения файла
     return f'{APP_NAMES.PORTFOLIO}/user_{username}_{user_id}/{filename}'  # Или f'{username}/{filename}'
 class Artwork(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Название',max_length=50)  # Ограниченная строка
     desc= models.TextField('Описание')  # Ограниченная строка
     image= models.ImageField('Изображение', upload_to=user_directory_path)  #  строка по изображению (отдельный тип данных)
