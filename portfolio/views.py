@@ -23,7 +23,8 @@ def portfolioView(request):
         print('****portfolio****', 'portfolio')
         print('****portfolio****', request.user.username)
         try:
-            portfolio = Artwork.objects.all()
+            portfolio = Artwork.objects.filter(user=request.user)
+
             # portfolio = get_object_or_404(Artwork, username=request.user.username)
             # print(dir(portfolio.image))
             # print(portfolio.image.path)

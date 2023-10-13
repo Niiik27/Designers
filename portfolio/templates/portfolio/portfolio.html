@@ -3,8 +3,23 @@
 {% block content %}
 {% load static %}
     <main>
-    {% if portfolio %}
+        <form id="new_img_form" class="hero card" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data" style="display: none">
+            {% csrf_token %}
+            { form.as_p }}
+            <div>Здесь приделал форму из формы джанго, с возможностью настраивать стили для лейблов и полей</div>
 
+            {% for field in form %}
+            <div class="my_field">
+                <label class="my_label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                {{ field }}
+            </div>
+            {% endfor %}
+
+            <button class="button" type = "submit">Добавить</button>
+        </form>
+        </section>
+    {% if portfolio %}
+        <section class="gallery">
         <div id="img_view">
             <img id="main-image" src="" alt="">
             <div id="descriptions">
@@ -28,41 +43,31 @@
         {% endfor %}
         </ul>
         {% endif %}
-
-        <section class="hero">
-        <form class="hero card" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-<!--            <label for="artwork">Загрузите новое изображение</label>
-            <input type="file" id="artwork" name="artwork" accept="image/png, image/jpeg" />
-
-            <label for="">Название</label>
-            <input class="txt-input" type="text" name="title" value="diz_nik">
-            <label for="">Описание</label>
-            <input class="txt-input" type="text" name="desc" value="diz_nik">
-            <label for="">Дата публикации</label>
-            <input class="txt-input" type="text" name="img_data" value="2023-08-15">
-            <label for="">Описание</label>
-            <input class="txt-input" type="text" name="partners" value="diz_nik">-->
-            <button class="button" type = "submit">Добавить</button>
-        </form>
         </section>
+        <section class="hero">
 
-<!--            <script>
-                const mainImage = document.getElementById('main-image');
-                const thumbnails = document.querySelectorAll('.thumb__img');
-                mainImage.src = thumbnails[0].src;
-                mainImage.alt = thumbnails[0].alt;
-                    thumbnails.forEach(thumbnail =>
-                    {
-                        thumbnail.addEventListener('click', () =>
-                        {
-                        mainImage.src = thumbnail.src;
-                        mainImage.alt = thumbnail.alt;
-                        });
-                    });
-             </script>
--->
+
+
+        <script>
+            const newImgForm = document.getElementById('new_img_form');
+            let header = document.getElementsByClassName('header-right')[0];
+            let button = document.createElement('button');
+            button.innerHTML = 'Добавить';
+            header.appendChild(button);
+            button.addEventListener("click", () =>
+            {
+                if (newImgForm.style.display == 'none')
+                {
+                    newImgForm.style.display='flex';
+                }
+                else
+                {
+                  newImgForm.style.display='none';
+                }
+
+
+            });
+        </script>
 
 
             <script>
