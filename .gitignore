@@ -1,3 +1,6 @@
 /portfolio/migrations/0002_alter_artwork_image_alter_artwork_user.py
+__pycache__/. 
+**/__pycache__/
 __pycache__
 .idea
+.git
