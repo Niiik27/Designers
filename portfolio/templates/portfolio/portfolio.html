@@ -4,6 +4,9 @@
 {% load static %}
     <main>
     {% if portfolio %}
+        <section class="main-window">
+            <img class="main-image" src="{{ artwork.image.url }}" alt="">
+        </section>
         <section class="thumbs">
         {% for artwork in portfolio %}
 <!--            <div class="card">-->
