@@ -13,9 +13,9 @@ def user_directory_path(instance, filename):
 class Artwork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField('Название',max_length=50)  # Ограниченная строка
-    desc= models.TextField('Описание')  # Ограниченная строка
+    desc= models.TextField('Описание',blank=True)  # Ограниченная строка
     image= models.ImageField('Изображение', upload_to=user_directory_path)  #  строка по изображению (отдельный тип данных)
-    date = models.DateField('Дата')  # Дата
+    date = models.DateField('Дата',blank=True)  # Дата
     url = models.URLField('В сотрудничестве',blank=True)  # Ссылок может быть много, пока не знаю как лучше сохранить ссылки на коллег и партнеров, возможно нужен список
 
     def __str__(self):

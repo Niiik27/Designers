@@ -5,23 +5,49 @@ from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 from loginuser.models import UserProfile
 from .forms import ArtworkForm
 
-# from django.db import models
 app_name = APP_NAMES.PORTFOLIO
 from .models import Artwork
 
 verbose_name = VERBOSE_APP_NAMES.PORTFOLIO
 
 
+
+def get_date(date):
+    day_list = ['первое', 'второе', 'третье', 'четвёртое',
+                'пятое', 'шестое', 'седьмое', 'восьмое',
+                'девятое', 'десятое', 'одиннадцатое', 'двенадцатое',
+                'тринадцатое', 'четырнадцатое', 'пятнадцатое', 'шестнадцатое',
+                'семнадцатое', 'восемнадцатое', 'девятнадцатое', 'двадцатое',
+                'двадцать первое', 'двадцать второе', 'двадцать третье',
+                'двадацать четвёртое', 'двадцать пятое', 'двадцать шестое',
+                'двадцать седьмое', 'двадцать восьмое', 'двадцать девятое',
+                'тридцатое', 'тридцать первое']
+    month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                  'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+
+    newdate = date[:date.rindex(' ')]
+    year = int(newdate[newdate.rindex(' '):len(newdate)])
+    newdate = date[:newdate.rindex(' ')]
+    month_str = str(newdate[newdate.rindex(' '):len(newdate)]).strip(' ')
+    day_str = date[:newdate.rindex(' ')].strip(' ')
+
+    day = str(day_list.index(day_str)).rjust(2,'0')
+    month = str(month_list.index(month_str)).rjust(2, '0')
+
+    return f'{year}-{month}-{day}'
+
+
 def portfolioView(request):
-    print(request)
-    print(type(request))
-    print(dir(request))
-    print(request.user.id)
-    print(dir(request.user))  # Откуда же здесь берется юзер?
+    # print(request)
+    # print(type(request))
+    # print(dir(request))
+    # print(request.user.id)
+    # print(dir(request.user))  # Откуда же здесь берется юзер?
     print(request.method)
+    print("2" * 200)
     if request.method == 'GET':
-        print('****portfolio****', 'portfolio')
-        print('****portfolio****', request.user.username)
+        # print('****portfolio****', 'portfolio')
+        # print('****portfolio****', request.user.username)
         try:
             portfolio = Artwork.objects.filter(user=request.user)
 
@@ -47,24 +73,44 @@ def portfolioView(request):
         # print('****portfolio****', 'portfolio')
         # print('****portfolio****', 'portfolio')
         # print((dict(request.FILES)).keys())
-        # print(request.POST)
-        # instance = request.user.userprofile
-        # print(instance)
 
-        form = ArtworkForm(request.POST, request.FILES)
-        if form.is_valid():
-            artwork = form.save(commit=False)
-            artwork.user = request.user
-            artwork.save()
-        # artwork = Artwork(
-        # user = request.user,
-        # title = request.POST['title'],
-        # desc = request.POST['desc'],
-        # image = request.FILES,
-        # date = request.POST['img_data'],
-        # url = request.POST['partners'],
-        # )
-        # artwork.save()
-        # print(artwork.image.upload_to)
-        # return redirect("/" + request.user.username)
-        return redirect(APP_NAMES.PORTFOLIO)
+        edit_mode = request.POST['edit_mode']
+        match edit_mode:
+            case 'new_image':
+                form = ArtworkForm(request.POST, request.FILES)
+                if form.is_valid():
+                    artwork = form.save(commit=False)
+                    artwork.user = request.user
+                    artwork.save()
+                    return redirect(APP_NAMES.PORTFOLIO)
+            case 'edit_image':
+                print('changed')
+                print(request.POST['id'])
+                img_id = request.POST['id']
+                portfolio = Artwork.objects.filter(user=request.user, id=img_id)
+                print(portfolio)
+
+                edit_img = request.POST['image']
+                edit_title = request.POST['title']
+                edit_desc = request.POST['desc']
+                edit_date = request.POST['date']
+                edit_url = request.POST['url']
+                if edit_img:
+                    portfolio.update(image=edit_img)
+                if edit_title:
+                    portfolio.update(title=edit_title)
+                portfolio.update(desc=edit_desc)
+                portfolio.update(date=get_date(edit_date))
+                portfolio.update(url=edit_url)
+                # portfolio.update(id = edit_url)
+
+                return redirect(APP_NAMES.PORTFOLIO)
+            case 'delete_image':
+                print('deleted')
+                img_id = request.POST['id']
+                portfolio = Artwork.objects.filter(user=request.user, id=img_id)
+                portfolio.delete()
+                return redirect(APP_NAMES.PORTFOLIO)
+            case _:
+                print('error')
+                return redirect(APP_NAMES.PORTFOLIO)
