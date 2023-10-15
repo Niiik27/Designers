@@ -15,7 +15,7 @@ class Artwork(models.Model):
     title = models.CharField('Название',max_length=50)  # Ограниченная строка
     desc= models.TextField('Описание',blank=True)  # Ограниченная строка
     image= models.ImageField('Изображение', upload_to=user_directory_path)
-    thumb = models.ImageField('Миниатюра', upload_to=thumb_directory_path)
+    thumb = models.ImageField('Миниатюра', upload_to=thumb_directory_path,blank=True)
     date = models.DateField('Дата',blank=True)  # Дата
     url = models.URLField('В сотрудничестве',blank=True)
 

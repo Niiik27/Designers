@@ -1,5 +1,6 @@
 from io import BytesIO
 
+import PIL
 from PIL import Image
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -42,29 +43,36 @@ def get_date(date):
     return f'{year}-{month}-{day}'
 
 
-def make_thumb(image:InMemoryUploadedFile):
-    imgIO = image.read()
-    img_data = BytesIO(imgIO)
-    img = Image.open(img_data)
+def make_thumb(original_image, max_size=(300, 300)):
+    # Открываем оригинальное изображение с помощью Pillow
+    img = Image.open(original_image)
+
+    # Уменьшаем изображение до заданных размеров (если оно больше)
+    img.thumbnail(max_size)
+
+    # Создаем байтовый поток для сохранения изображения
+    image_stream = BytesIO()
+    img.save(image_stream, format='JPEG')  # Вы можете выбрать другой формат, если это не JPEG
+
+    # Создаем объект InMemoryUploadedFile для уменьшенного изображения
+    resized_image = InMemoryUploadedFile(
+        image_stream,
+        None,
+        original_image.name,  # Имя файла остается тем же, что и у оригинала
+        'image/jpeg',  # Или другой MIME-тип, если это не JPEG
+        image_stream.tell(),
+        None
+    )
+
+    return resized_image
 
 
-
-    new_size = (300, 300)
-    img.thumbnail(new_size)
-
-    filenames = image.name
-    imgnames = filenames.split('.')
-    imgExt = imgnames[1]
-    filename = imgnames[0]
-    print(filename)
-
-    # Преобразуем изображение в байты
-    buffer = BytesIO()
-    img.save(buffer, format=imgExt)
-    image_file = ContentFile(buffer.getvalue(),name=filename)
-    InMemoryUploadedFile(file=image_file,name=filename, content_type='image/jpeg')
-
-    return image_file
+# def get_Full_Image(request, img_id):
+#     portfolio = Artwork.objects.filter(user=request.user, id=img_id)
+#     return render(request, template_name=f'./{app_name}/{app_name}.html',
+#                   context={'form': form, 'portfolio': portfolio, 'page_name': verbose_name, 'page_style': app_name})
+#
+    # return redirect(APP_NAMES.PORTFOLIO)
 
 def portfolioView(request):
     # print(request)
@@ -110,19 +118,21 @@ def portfolioView(request):
                 make_thumb(request.FILES['image'])
                 form = ArtworkForm(request.POST, request.FILES)
                 if form.is_valid():
+                    original_image = form.cleaned_data['image']
+                    resized_image = make_thumb(original_image)
                     artwork = form.save(commit=False)
                     artwork.user = request.user
+                    artwork.image = original_image
+                    artwork.thumb = resized_image
                     artwork.save()
 
-                    portfolio = Artwork.objects.filter(user=request.user, id=artwork.id)
-                    portfolio.update(thumb=make_thumb(request.FILES['image']))
                 return redirect(APP_NAMES.PORTFOLIO)
             case 'edit_image':
                 print('changed')
                 print(request.POST['id'])
                 img_id = request.POST['id']
-                portfolio = Artwork.objects.filter(user=request.user, id=img_id)
-                print(portfolio)
+                portfolio:Artwork = Artwork.objects.get(user=request.user, id=img_id)
+                print(type(portfolio))
 
                 edit_img = request.POST['image']
                 edit_title = request.POST['title']
@@ -130,13 +140,17 @@ def portfolioView(request):
                 edit_date = request.POST['date']
                 edit_url = request.POST['url']
                 if edit_img:
-                    portfolio.update(image=edit_img)
+                    portfolio.image=edit_img
+                    portfolio.thumb=make_thumb(edit_img)
                 if edit_title:
-                    portfolio.update(title=edit_title)
-                portfolio.update(desc=edit_desc)
-                portfolio.update(date=get_date(edit_date))
-                portfolio.update(url=edit_url)
-                # portfolio.update(id = edit_url)
+                    portfolio.title=edit_title
+                if edit_desc:
+                    portfolio.desc=edit_desc
+                if edit_date:
+                    portfolio.date=get_date(edit_date)
+                if edit_url:
+                    portfolio.url=edit_url
+                portfolio.save()
 
                 return redirect(APP_NAMES.PORTFOLIO)
             case 'delete_image':

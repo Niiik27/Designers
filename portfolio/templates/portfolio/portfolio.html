@@ -57,6 +57,13 @@
 
         <script>
 <!--    Просмотр галереи        -->
+            function getImgPath(path) {
+                const pathParts = path.split('/');
+                const filteredPathParts = pathParts.filter(part => part !== 'tmb');
+                const newPath = filteredPathParts.join('/');
+                return newPath;
+                }
+
 
             function get_date(date)
             {
@@ -129,7 +136,7 @@
 
             const img_id = descriptions[4];
 
-            mainImage.src = thumbnail.src;
+            mainImage.src = getImgPath(thumbnail.src);
             mainImage.alt = thumbnail.alt;
 
             mainImage_title.textContent = title.textContent;
@@ -166,7 +173,7 @@
                         const date = descriptions[2];
                         const urls = descriptions[3];
                         const img_id = descriptions[4];
-                        mainImage.src = image.src;
+                        mainImage.src = getImgPath(image.src);
                         mainImage.alt = image.alt;
 
                         mainImage_title.textContent = title.textContent;
@@ -182,20 +189,18 @@
             const imgEditMode = document.getElementById('edit_mode');
             const newImgForm = document.getElementById('new_img_form');
             const textFields = newImgForm.getElementsByClassName('txt-input');
-
+            const idField = textFields.namedItem('id');
             const imageField = document.getElementById('img_file');
             const titleField = textFields.namedItem('title');
             const descField = textFields.namedItem('desc');
             const dateField = textFields.namedItem('date');
             const urlsField = textFields.namedItem('url');
 
-
+            idField.required=true;
             const submitBtn = document.getElementById("submitButton");
             // imageField.required=false;
             // titleField.required=false;
-            descField.required=false;
-            dateField.required=false;
-            urlsField.required=false;
+
 
 
             let header = document.getElementsByClassName('header-right')[0];
@@ -207,6 +212,7 @@
                 imgEditMode.value="new_image";
                 imageField.required=true;
                 titleField.required=true;
+                idField.required=false;
                 // descField.required=true;
                 // dateField.required=true;
                 // urlsField.required=true;
@@ -229,6 +235,9 @@
                   newImgForm.style.zIndex='-1';
                 }
 
+                imageField.required=true;
+                titleField.required=true;
+                idField.required=true;
 
             });
         </script>
@@ -237,7 +246,7 @@
             // const editImgForm = document.getElementById('new_img_form');
             // let header = document.getElementsByClassName('header-right')[0];
             let editbutton = document.createElement('button');
-            const idField = textFields.namedItem('id');
+
             editbutton.innerHTML = 'Редактировать';
             header.appendChild(editbutton);
             editbutton.addEventListener("click", () =>
@@ -245,6 +254,7 @@
                 imgEditMode.value="edit_image";
                 imageField.required=false;
                 titleField.required=true;
+                idField.required=true;
                 // newImgForm.children.namedItem('')
                 // const textFields = newImgForm.getElementsByClassName('txt-input')
                 // const title = textFields.namedItem('title')
@@ -274,7 +284,6 @@
                   newImgForm.style.zIndex='-1';
                 }
 
-
             });
         </script>
         <script>
@@ -286,14 +295,13 @@
             {
                 imageField.required=false;
                 titleField.required=false;
+                idField.required=false;
                 imgEditMode.value="delete_image";
                 submitBtn.innerHTML="Удалить"
                 idField.value=mainImage_id.textContent;
                 submitBtn.click();
-                // imageField.required=true;
-                // titleField.required=true;
-
             });
+            // submitBtn.ontouchend();
         </script>
     </main>
 {% endblock %}
