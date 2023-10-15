@@ -1,3 +1,8 @@
+from io import BytesIO
+
+from PIL import Image
+from django.core.files.base import ContentFile
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import OperationalError
 from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
@@ -31,11 +36,35 @@ def get_date(date):
     month_str = str(newdate[newdate.rindex(' '):len(newdate)]).strip(' ')
     day_str = date[:newdate.rindex(' ')].strip(' ')
 
-    day = str(day_list.index(day_str)).rjust(2,'0')
-    month = str(month_list.index(month_str)).rjust(2, '0')
+    day = str(day_list.index(day_str)+1).rjust(2,'0')
+    month = str(month_list.index(month_str)+1).rjust(2, '0')
 
     return f'{year}-{month}-{day}'
 
+
+def make_thumb(image:InMemoryUploadedFile):
+    imgIO = image.read()
+    img_data = BytesIO(imgIO)
+    img = Image.open(img_data)
+
+
+
+    new_size = (300, 300)
+    img.thumbnail(new_size)
+
+    filenames = image.name
+    imgnames = filenames.split('.')
+    imgExt = imgnames[1]
+    filename = imgnames[0]
+    print(filename)
+
+    # Преобразуем изображение в байты
+    buffer = BytesIO()
+    img.save(buffer, format=imgExt)
+    image_file = ContentFile(buffer.getvalue(),name=filename)
+    InMemoryUploadedFile(file=image_file,name=filename, content_type='image/jpeg')
+
+    return image_file
 
 def portfolioView(request):
     # print(request)
@@ -77,12 +106,17 @@ def portfolioView(request):
         edit_mode = request.POST['edit_mode']
         match edit_mode:
             case 'new_image':
+                print('FILESFILESFILES',request.FILES)
+                make_thumb(request.FILES['image'])
                 form = ArtworkForm(request.POST, request.FILES)
                 if form.is_valid():
                     artwork = form.save(commit=False)
                     artwork.user = request.user
                     artwork.save()
-                    return redirect(APP_NAMES.PORTFOLIO)
+
+                    portfolio = Artwork.objects.filter(user=request.user, id=artwork.id)
+                    portfolio.update(thumb=make_thumb(request.FILES['image']))
+                return redirect(APP_NAMES.PORTFOLIO)
             case 'edit_image':
                 print('changed')
                 print(request.POST['id'])

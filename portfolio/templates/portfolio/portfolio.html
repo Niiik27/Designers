@@ -35,7 +35,7 @@
         {% for artwork in portfolio %}
 <!--            <div class="card">-->
                 <li class="thumb__block" href="{{ artwork.url }}">
-                    <img class="thumb__img" src="{{ artwork.image.url }}" alt="">
+                    <img class="thumb__img" src="{{ artwork.thumb.url }}" alt="">
 
                     <span class="tmb_title">{{ artwork.title }}</span>
                     <span class="tmb_desc" hidden="hidden">{{ artwork.desc }}</span>
@@ -75,17 +75,17 @@
 
                 const months = {
                     'Jan.': 'января',
-                    'February': 'февраля',
+                    'Feb.': 'февраля',
                     "March":'марта',
                     "April":'апреля',
                     "May":'мая',
                     "June":'июня',
                     "July":'июля',
-                    "August":'августа',
+                    "Aug.":'августа',
                     "Sept.":'сентября',
-                    "October":'октября',
-                    "November":'ноября',
-                    "December":'декабря'
+                    "Oct.":'октября',
+                    "Nov.":'ноября',
+                    "Dec.":'декабря'
                 };
 
 
