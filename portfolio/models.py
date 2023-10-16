@@ -12,10 +12,10 @@ def thumb_directory_path(instance, filename):
     return f'{APP_NAMES.PORTFOLIO}/user_{username}_{user_id}/tmb/{filename}'
 class Artwork(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField('Название',max_length=50)  # Ограниченная строка
-    desc= models.TextField('Описание',blank=True)  # Ограниченная строка
+    title = models.CharField('Название',max_length=50)
     image= models.ImageField('Изображение', upload_to=user_directory_path)
-    thumb = models.ImageField('Миниатюра', upload_to=thumb_directory_path,blank=True)
+    thumb = models.ImageField('Миниатюра', upload_to=thumb_directory_path)
+    desc = models.TextField('Описание', blank=True)
     date = models.DateField('Дата',blank=True)  # Дата
     url = models.URLField('В сотрудничестве',blank=True)
 

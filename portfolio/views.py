@@ -17,7 +17,6 @@ from .models import Artwork
 verbose_name = VERBOSE_APP_NAMES.PORTFOLIO
 
 
-
 def get_date(date):
     day_list = ['первое', 'второе', 'третье', 'четвёртое',
                 'пятое', 'шестое', 'седьмое', 'восьмое',
@@ -37,8 +36,8 @@ def get_date(date):
     month_str = str(newdate[newdate.rindex(' '):len(newdate)]).strip(' ')
     day_str = date[:newdate.rindex(' ')].strip(' ')
 
-    day = str(day_list.index(day_str)+1).rjust(2,'0')
-    month = str(month_list.index(month_str)+1).rjust(2, '0')
+    day = str(day_list.index(day_str) + 1).rjust(2, '0')
+    month = str(month_list.index(month_str) + 1).rjust(2, '0')
 
     return f'{year}-{month}-{day}'
 
@@ -46,10 +45,8 @@ def get_date(date):
 def make_thumb(original_image, max_size=(300, 300)):
     # Открываем оригинальное изображение с помощью Pillow
     img = Image.open(original_image)
-
     # Уменьшаем изображение до заданных размеров (если оно больше)
     img.thumbnail(max_size)
-
     # Создаем байтовый поток для сохранения изображения
     image_stream = BytesIO()
     img.save(image_stream, format='JPEG')  # Вы можете выбрать другой формат, если это не JPEG
@@ -59,7 +56,7 @@ def make_thumb(original_image, max_size=(300, 300)):
         image_stream,
         None,
         original_image.name,  # Имя файла остается тем же, что и у оригинала
-        'image/jpeg',  # Или другой MIME-тип, если это не JPEG
+        'image/jpeg',
         image_stream.tell(),
         None
     )
@@ -72,7 +69,7 @@ def make_thumb(original_image, max_size=(300, 300)):
 #     return render(request, template_name=f'./{app_name}/{app_name}.html',
 #                   context={'form': form, 'portfolio': portfolio, 'page_name': verbose_name, 'page_style': app_name})
 #
-    # return redirect(APP_NAMES.PORTFOLIO)
+# return redirect(APP_NAMES.PORTFOLIO)
 
 def portfolioView(request):
     # print(request)
@@ -109,54 +106,68 @@ def portfolioView(request):
         # print('****portfolio****', 'portfolio')
         # print('****portfolio****', 'portfolio')
         # print('****portfolio****', 'portfolio')
-        # print((dict(request.FILES)).keys())
+        print(str(request.POST))
 
         edit_mode = request.POST['edit_mode']
+        portfolio: Artwork = Artwork(user=request.user)
         match edit_mode:
             case 'new_image':
-                print('FILESFILESFILES',request.FILES)
-                make_thumb(request.FILES['image'])
-                form = ArtworkForm(request.POST, request.FILES)
-                if form.is_valid():
-                    original_image = form.cleaned_data['image']
-                    resized_image = make_thumb(original_image)
-                    artwork = form.save(commit=False)
-                    artwork.user = request.user
-                    artwork.image = original_image
-                    artwork.thumb = resized_image
-                    artwork.save()
+                edit_img = request.FILES.get('image')
+                edit_title = request.POST.get('title')
+                edit_desc = request.POST.get('desc')
+                edit_date = request.POST.get('date')
+                edit_url = request.POST.get('url')
+                if edit_img:
+                    portfolio.image = edit_img
+                    portfolio.thumb = make_thumb(edit_img)
+                else:
+                    return redirect(APP_NAMES.PORTFOLIO)
+                if edit_title:
+                    portfolio.title = edit_title
+                else:
+                    return redirect(APP_NAMES.PORTFOLIO)
+                if edit_desc:
+                    portfolio.desc = edit_desc
+                if edit_date:
+                    portfolio.date = edit_date
+                if edit_url:
+                    portfolio.url = edit_url
+                portfolio.save()
+
+                # form = ArtworkForm(request.POST, request.FILES)
+                # if form.is_valid():
+                #     print('saved ' * 100)
+                #     original_image = form.cleaned_data['image']
+                #     artwork = form.save(commit=False)
+                #     artwork.user = request.user
+                #     artwork.image = original_image
+                #     artwork.thumb = make_thumb(original_image)
+                #     artwork.save()
 
                 return redirect(APP_NAMES.PORTFOLIO)
             case 'edit_image':
-                print('changed')
-                print(request.POST['id'])
-                img_id = request.POST['id']
-                portfolio:Artwork = Artwork.objects.get(user=request.user, id=img_id)
-                print(type(portfolio))
-
-                edit_img = request.POST['image']
-                edit_title = request.POST['title']
-                edit_desc = request.POST['desc']
-                edit_date = request.POST['date']
-                edit_url = request.POST['url']
+                portfolio: Artwork = Artwork.objects.get(user=request.user,id=request.POST['id'])
+                edit_img = request.FILES.get('image')
+                edit_title = request.POST.get('title')
+                edit_desc = request.POST.get('desc')
+                edit_date = request.POST.get('date')
+                edit_url = request.POST.get('url')
                 if edit_img:
-                    portfolio.image=edit_img
-                    portfolio.thumb=make_thumb(edit_img)
+                    portfolio.image = edit_img
+                    portfolio.thumb = make_thumb(edit_img)
                 if edit_title:
-                    portfolio.title=edit_title
-                if edit_desc:
-                    portfolio.desc=edit_desc
-                if edit_date:
-                    portfolio.date=get_date(edit_date)
-                if edit_url:
-                    portfolio.url=edit_url
+                    portfolio.title = edit_title
+                # if edit_desc:
+                portfolio.desc = edit_desc
+                # if edit_date:
+                portfolio.date = edit_date
+                # if edit_url:
+                portfolio.url = edit_url
                 portfolio.save()
 
                 return redirect(APP_NAMES.PORTFOLIO)
             case 'delete_image':
-                print('deleted')
-                img_id = request.POST['id']
-                portfolio = Artwork.objects.filter(user=request.user, id=img_id)
+                portfolio: Artwork = Artwork.objects.get(user=request.user, id=request.POST['id'])
                 portfolio.delete()
                 return redirect(APP_NAMES.PORTFOLIO)
             case _:
