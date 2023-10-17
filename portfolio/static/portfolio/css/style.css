@@ -52,7 +52,7 @@ label{
     align-items: center; */
 }
 
-.card{
+.new_edit_form{
     position: fixed;
     top: 50%;
     left: 50%;
@@ -60,8 +60,8 @@ label{
     padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
     width: 700px;
     height: 700px;
     background-color: #dcdcdc;
@@ -143,16 +143,20 @@ label{
 
 .txt-input{
     border-radius: 10px;
-    width:100%;
+    width:500px;
     height:27px;
-    color:blue;
+    color: #8d8d8d;
+
 }
 
 .button{
+    /*display: flex;*/
     border-radius: 20px;
     padding: 10px 30px;
     margin: 10px;
-    background-color: #d91414;
+    background-color: #adadad;
+    justify-self: center;
+    align-self: center;
 
 }
 
@@ -240,18 +244,7 @@ label{
 }
 
 
-.thumb__block1{
-    display: flex;
-    position: relative;
-    /*flex-direction: column;*/
-    justify-content: space-between;
-    width:auto;
-    height:200px;
-    box-shadow: 3px 3px 10px #343c3d;
-    border-radius:40px;
-    align-items: center;
-    margin: 10px;
-}
+
 
 .thumb__img{
     /*display: grid;*/
@@ -333,17 +326,26 @@ label{
 
 .my_field{
     display: flex;
-    flex-direction: row;
-    color: blue;
+    color: #1e1e1e;
     font-size: large;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    width:100%;
+    padding: 0;
+    margin: 0;
+    /*background: yellow;*/
 }
 
 .my_label{
     display: flex;
-    color: blue;
+    color: #ffffff;
     font-size: large;
+}
+.submits{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
 }
 /*.form-control {*/
 

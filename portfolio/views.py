@@ -77,8 +77,8 @@ def portfolioView(request):
     # print(dir(request))
     # print(request.user.id)
     # print(dir(request.user))  # Откуда же здесь берется юзер?
-    print(request.method)
-    print("2" * 200)
+    # print(request.method)
+    # print("2" * 200)
     if request.method == 'GET':
         # print('****portfolio****', 'portfolio')
         # print('****portfolio****', request.user.username)
@@ -89,12 +89,12 @@ def portfolioView(request):
             # print(dir(portfolio.image))
             # print(portfolio.image.path)
         except Http404 as e:
-            print(str(e))
+            # print(str(e))
             portfolio = None
             # print('****portfolio****',portfolio)
             # print(dir(portfolio.image))
         except OperationalError as e:
-            print(str(e))
+            # print(str(e))
             portfolio = None
         form = ArtworkForm()
         return render(request, template_name=f'./{app_name}/{app_name}.html',
@@ -109,8 +109,9 @@ def portfolioView(request):
         print(str(request.POST))
 
         edit_mode = request.POST['edit_mode']
+        edit_btn = request.POST['edit_btn']
         portfolio: Artwork = Artwork(user=request.user)
-        match edit_mode:
+        match edit_btn:
             case 'new_image':
                 edit_img = request.FILES.get('image')
                 edit_title = request.POST.get('title')

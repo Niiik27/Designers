@@ -4,20 +4,25 @@
 {% load static %}
     <main>
 
-        <form id="new_img_form" class="hero card" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data" style="display: none">
+        <form id="new_img_form" class="hero new_edit_form" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data" style="display: none">
             <div>Здесь приделал форму из формы джанго, с возможностью настраивать стили для лейблов и полей </div>
             {% csrf_token %}
-            <input id="edit_mode" type="text" name="edit_mode" >
+            <input id="edit_mode" type="text" name="edit_mode"  hidden="hidden">
             
 
             {% for field in form %}
             <div class="my_field">
+                {% if field.label != 'id_img' %}
                 <label class="my_label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                {% endif %}
                 {{ field }}
             </div>
             {% endfor %}
-
-            <button id="submitButton" class="button" type = "submit">Добавить</button>
+            <div class="submits">
+            <button id="submitButton" class="button" type = "submit" name="edit_btn" value="new_image">Добавить</button>
+            <button id="editButton" class="button" type = "submit" name="edit_btn" value="edit_image">Изменить</button>
+            <button id="delButton" class="button" type = "submit" name="edit_btn" value="delete_image">Удалить</button>
+            </div>
         </form>
         </section>
     {% if portfolio %}
@@ -133,6 +138,42 @@
                     year + ' года')
 
             }
+
+            function get_format_date(date)
+            {
+                // date = 'второе октября 2023 года';
+                let day_list = ['первое', 'второе', 'третье', 'четвёртое', 'пятое', 'шестое', 'седьмое', 'восьмое',
+                    'девятое', 'десятое', 'одиннадцатое', 'двенадцатое', 'тринадцатое', 'четырнадцатое', 'пятнадцатое',
+                    'шестнадцатое', 'семнадцатое', 'восемнадцатое', 'девятнадцатое', 'двадцатое', 'двадцать первое',
+                    'двадцать второе', 'двадцать третье', 'двадацать четвёртое', 'двадцать пятое', 'двадцать шестое',
+                    'двадцать седьмое', 'двадцать восьмое', 'двадцать девятое', 'тридцатое', 'тридцать первое'];
+                let month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября',
+                    'октября', 'ноября', 'декабря'];
+
+                let day_dict = {'первое':'01', 'второе':'02', 'третье':'03', 'четвёртое':'04', 'пятое':'05', 'шестое':'06',
+                    'седьмое':'07', 'восьмое':'08', 'девятое':'09', 'десятое':'10', 'одиннадцатое':'11', 'двенадцатое':'12',
+                    'тринадцатое':'13', 'четырнадцатое':'14', 'пятнадцатое':'15', 'шестнадцатое':'16', 'семнадцатое':'17',
+                    'восемнадцатое':'18', 'девятнадцатое':'19', 'двадцатое':'20', 'двадцать первое':'21',
+                    'двадцать второе':'22', 'двадцать третье':'23', 'двадацать четвёртое':'24', 'двадцать пятое':'25',
+                    'двадцать шестое':'26', 'двадцать седьмое':'27', 'двадцать восьмое':'28', 'двадцать девятое':'29',
+                    'тридцатое':'30', 'тридцать первое':'31'};
+                let month_dict = {'января':'01', 'февраля':'02', 'марта':'03', 'апреля':'04', 'мая':'05', 'июня':'06',
+                    'июля':'07', 'августа':'08', 'сентября':'09', 'октября':'10', 'ноября':'11', 'декабря':'12'};
+
+                let date_list = date.split(' ');
+                let year = date_list[date_list.length-2];
+                let month_str = date_list[date_list.length-3];
+                let day_str = date_list.slice(0,date_list.length-3).join(' ');
+                let month = month_dict[month_str];
+                let day = day_dict[day_str];
+
+                let date_str = `${year}-${month}-${day}`;
+
+                console.log( Date(date_str));
+                return date_str;
+
+            }
+            // console.log(get_format_date('двадцать второе октября 2023 года'))
             /**Блок галереи*/
             const mainView = document.getElementById('img_view');
             // if (thumbs){
@@ -294,7 +335,7 @@
 
                 titleField.value=mainImage_title.textContent;
                 descField.value=mainImage_desc.textContent;
-                dateField.value=mainImage_date.textContent;
+                dateField.value=get_format_date(mainImage_date.textContent);
                 urlsField.value=mainImage_urls.textContent;
                 idField.value=mainImage_id.textContent;
 
