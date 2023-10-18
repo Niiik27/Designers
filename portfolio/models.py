@@ -1,3 +1,7 @@
+import os
+
+from django.db.models.signals import pre_delete
+
 from django.db import models
 from django.contrib.auth.models import User
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
@@ -21,7 +25,15 @@ class Artwork(models.Model):
 
     def __str__(self):
         return f"{self.title} | {self.date}"
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        self.thumb.delete()
+        super().delete(*args, **kwargs)
+
     class Meta:
         verbose_name = APP_NAMES.PORTFOLIO
         verbose_name_plural = VERBOSE_APP_NAMES.PORTFOLIO
+
+
 
