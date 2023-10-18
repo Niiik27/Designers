@@ -1,18 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static '' %}{{ page_style }}/css/style.css">
-    <link rel="stylesheet" href="{% static 'base/css/style.css' %}">
-    <title>{{ page_name }}</title>
-    <div>{{ page_name }}</div>
-    <div>{{ page_style }}</div>
-</head>
-<body>
+<main>
+    <p>photo_url image firstname lastname birth e_mail phone social_vk social_ok social_inst social_tub username password about user</p>
+    {% if users %}
 
-</body>
-</html>
+        <ul class="thumbs">
+        {% for user in users %}
+            <li class="thumb__block">
+                <a class="tmb_date" href="{% url 'artists' user.username %}">{{ user.username }}</a>
+                <img src="{{ user.image.url }}" alt="" class="my_image hero__my_image">
+                <span class="tmb_title">{{ user.firstname }}</span>
+                <span class="tmb_desc" >{{ user.lastname }}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</main>
+{% endblock %}
+
+
+
+
+
+ {% for field in form %}
+            <div class="my_field">
+                {% if field.label != 'id_img' %}
+                <label class="my_label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                {% endif %}
+                {{ field }}
+            </div>
+            {% endfor %}

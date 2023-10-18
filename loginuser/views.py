@@ -123,10 +123,6 @@ def profileView(request, username):
     return render(request, f'{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',{'userprofile':user, 'page_name':VERBOSE_APP_NAMES.HOME,'page_style':APP_NAMES.HOME, 'age':age})
 
 
-def profileView1(request, username):
-    user = get_object_or_404(UserProfile, username = username)
-    return render(request, f'./{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE})
-
 def profileupView(request):
     user_profile = request.user.userprofile
     if request.method == 'POST':

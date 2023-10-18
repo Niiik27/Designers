@@ -1,11 +1,11 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block content %}
-
-    <main>
-<!--        Добавить код для секции hero, отображать только после авторизации-->
-        {% if request.user.username %}
+{% load static %}
+<main>
         <section class="hero">
             <div class="wrapper hero-wrapper">
+                <div>Это страница просмотра пользователя, тут должна быть только внешняя информация</div>
                 <img src="{{ userprofile.image.url }}" alt="" class="my_image hero__my_image">
                 <span class="my_age">Логин: {{ userprofile.username }}, Пароль: {{ userprofile.password }}</span>
 
@@ -25,15 +25,7 @@
                 <p class="my_desc">О себе: {{ userprofile.about }}</p>
             </div>
         </section>
-        {% else %}
-<!--        Добавить код для отображения регистрации. Только не ля авторизованных пользователей-->
-        <section class="hero">
-            <div class="wrapper hero-wrapper">
-                <h2>Регистрация нового пользователя</h2>
-                <a href="#" class="sign_link">Регистрация</a>
-            </div>
-        </section>
-        {% endif %}
-    </main>
+</main>
 {% endblock %}
+
 
