@@ -58,12 +58,27 @@ def reguserView(request):
                 try:
                     user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
                     user.save()
+                    print("Новый вход")
+                    print("создадся пользователь")
                 except IntegrityError:
-                    user = get_object_or_404(User, username=request.POST['username'])
+                    print("Не получилось создать пользователя потому что такой уже существует")
+                    if request.user.is_authenticated:
+                        user = request.user
+                        print('Вход под залогининым пользователем')
+                        print('Такое возможно если залогинились неимея инфо')
+                        print('Такое возможно если входили в админку под суперпользователем, которого создали в django, но не через страницу регистрации')
+                        print('И такое возможно при редактировании пользователя')
+                    else:
+                        user = get_object_or_404(User, username=request.POST['username'])
+                        print('Такой пользователь уже есть и он взят из базы')
+                        print('Такое возможно при входе. Возможно это старый вариант для суперпользователя. требуется отследить')
+                        print('')
                 try:
-                    print(f'Произошла ошибка: ladskjkghfdslkghsldfkghlksdfglskdfhgldfhj')
-                    userProfile = get_object_or_404(UserProfile, username=request.POST['username'])
-
+                    print(f'Пошло по 1 пути, в любом случае мы получили пользователя, теперь нам нужно получить его инфо')
+                    userProfile = get_object_or_404(UserProfile, username=user.username)
+                    print(f'Профиль пользователя найден')
+                    print('Это значит что происходит редактирование инфо')
+                    print('Значит сюда попали со страницы редактирования')
                     userProfile.photo_url = request.POST['photo_url']
                     userProfile.image = save_image_from_url(request.POST['photo_url'])
                     userProfile.firstname = request.POST['firstname']
@@ -78,10 +93,21 @@ def reguserView(request):
                     userProfile.username = request.POST['username'],
                     userProfile.password = request.POST['password1']
                     userProfile.about = request.POST['about']
+                    # print(request.user)
+                    # print(request.user.username)
+                    # print(request.user)
                     userProfile.user = user
-                    print(f'Произошла ошибка: ladskjkghfdslkghsldfkghlksdfglskdfhgldfhj')
+                    print(f'Все ок прошло по 1 пути')
 
                 except Http404:
+                    print("Профиль не нашелся,  создается новый")
+                    print("Это произошло потому что нет инфо")
+
+
+                    if request.user.is_authenticated:
+                        print("Произошел вход СУПЕРПОЛЬЗОВАТЕЛЯ, создается для него инфо")
+                    else:
+                        print("Создается инфо для нового пользователя")
                     userProfile = UserProfile(
                     photo_url = request.POST['photo_url'],
                     image = save_image_from_url(request.POST['photo_url']),
@@ -99,22 +125,49 @@ def reguserView(request):
                     about = request.POST['about'],
                     user = user,
                     )
-
+                print("Новый профиль создался")
                 userProfile.save()
+                print("Новый профиль сохранился")
                 login(request, user)
+                print("Новый профиль заллогинился")
                 return redirect("/"+user.username)
 
 
             except IntegrityError as e:
-                error_message = str(e)
-                print(f'Произошла ошибка: {error_message}')
-                return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
-                              {'error': 'Такой логин уже занят',
-                               'page_name': 'Регистрация - выберите другой логин', 'page_style': app_name})
+                if request.user.is_authenticated:
+                    print("Пошло по 2 пути")
+                    print(e)
+                    # userProfile = get_object_or_404(UserProfile, username=user.username)
+                    #
+                    # userProfile.photo_url = request.POST['photo_url']
+                    # userProfile.image = save_image_from_url(request.POST['photo_url'])
+                    # userProfile.firstname = request.POST['firstname']
+                    # userProfile.lastname = request.POST['lastname']
+                    # userProfile.birth = request.POST['birth']
+                    # userProfile.e_mail = request.POST['e_mail']
+                    # userProfile.phone = ''.join(re.findall("\d+", request.POST['phone']))
+                    # userProfile.social_vk = request.POST['social_vk']
+                    # userProfile.social_ok = request.POST['social_ok']
+                    # userProfile.social_inst = request.POST['social_inst']
+                    # userProfile.social_tube = request.POST['social_tube']
+                    # userProfile.username = request.POST['username'],
+                    # userProfile.password = request.POST['password1']
+                    # userProfile.about = request.POST['about']
+                    # userProfile.user = user
+                    # userProfile.save()
+                    # login(request, user)
+                    # print('Все ок на 2 пути')
+                    # return redirect("/" + user.username)
+                else:
+                    error_message = str(e)
+                    print(f'Произошла ошибка: {error_message}')
+                    return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
+                                  {'error': 'Такой логин уже занят',
+                                   'page_name': 'Регистрация - выберите другой логин', 'page_style': app_name})
         else:
             return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',
-                          {'error': 'Пароли не совпадают',
-                           'page_name': 'Введите совпадающие пароли', 'page_style': app_name, })
+                      {'error': 'Пароли не совпадают',
+                       'page_name': 'Введите совпадающие пароли', 'page_style': app_name, })
 
 
 def loginuserView(request):
