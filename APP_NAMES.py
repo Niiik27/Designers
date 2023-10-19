@@ -10,6 +10,7 @@ class APP_NAMES(ABC):
     REG_USER = 'reguser'
     LOGIN_USER = 'loginuser'
     LOGOUT_USER = 'logoutuser'
+    PROFILE_UP = 'profileup'
 
     USER_PROFILE = 'userprofile'
     PORTFOLIO = 'portfolio'
@@ -37,7 +38,7 @@ class VERBOSE_APP_NAMES(APP_NAMES):
     REG_USER = u'Регистрация'
     LOGIN_USER = u'Войти'
     LOGOUT_USER = u'Выйти'
-
+    PROFILE_UP = u'Редактировать профиль'
     USER_PROFILE = u'Профиль'
     PORTFOLIO = u'Портфолио'
     BLOG = u'Блог'

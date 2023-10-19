@@ -11,5 +11,5 @@ def homeView(request):
         return redirect("/" + request.user.username)
     else:
         return redirect(f"/{APP_NAMES.ARTISTS}")
-        return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':verbose_name,'page_style':app_name})
+        # return render(request, template_name=f'./{app_name}/{app_name}.html', context={'page_name':verbose_name,'page_style':app_name})
 

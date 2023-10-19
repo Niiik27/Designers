@@ -5,6 +5,8 @@ import re
 
 import requests
 from PIL import Image
+from django.http import Http404
+
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
 from django.db import models
 from django.shortcuts import render, redirect, get_object_or_404
@@ -53,25 +55,50 @@ def reguserView(request):
     else:
         if request.POST['password1'] == request.POST['password2']:
             try:
-                user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
-                user.save()
-                userProfile = UserProfile(
-                photo_url = request.POST['photo_url'],
-                image = save_image_from_url(request.POST['photo_url']),
-                firstname = request.POST['firstname'],
-                lastname = request.POST['lastname'],
-                birth = request.POST['birth'],
-                e_mail = request.POST['e_mail'],
-                phone = ''.join(re.findall("\d+", request.POST['phone'])),
-                social_vk = request.POST['social_vk'],
-                social_ok = request.POST['social_ok'],
-                social_inst = request.POST['social_inst'],
-                social_tube = request.POST['social_tube'],
-                username = request.POST['username'],
-                password = request.POST['password1'],
-                about = request.POST['about'],
-                user = user,
-                )
+                try:
+                    user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+                    user.save()
+                except IntegrityError:
+                    user = get_object_or_404(User, username=request.POST['username'])
+                try:
+                    print(f'Произошла ошибка: ladskjkghfdslkghsldfkghlksdfglskdfhgldfhj')
+                    userProfile = get_object_or_404(UserProfile, username=request.POST['username'])
+
+                    userProfile.photo_url = request.POST['photo_url']
+                    userProfile.image = save_image_from_url(request.POST['photo_url'])
+                    userProfile.firstname = request.POST['firstname']
+                    userProfile.lastname = request.POST['lastname']
+                    userProfile.birth = request.POST['birth']
+                    userProfile.e_mail = request.POST['e_mail']
+                    userProfile.phone = ''.join(re.findall("\d+", request.POST['phone']))
+                    userProfile.social_vk = request.POST['social_vk']
+                    userProfile.social_ok = request.POST['social_ok']
+                    userProfile.social_inst = request.POST['social_inst']
+                    userProfile.social_tube = request.POST['social_tube']
+                    userProfile.username = request.POST['username'],
+                    userProfile.password = request.POST['password1']
+                    userProfile.about = request.POST['about']
+                    userProfile.user = user
+                    print(f'Произошла ошибка: ladskjkghfdslkghsldfkghlksdfglskdfhgldfhj')
+
+                except Http404:
+                    userProfile = UserProfile(
+                    photo_url = request.POST['photo_url'],
+                    image = save_image_from_url(request.POST['photo_url']),
+                    firstname = request.POST['firstname'],
+                    lastname = request.POST['lastname'],
+                    birth = request.POST['birth'],
+                    e_mail = request.POST['e_mail'],
+                    phone = ''.join(re.findall("\d+", request.POST['phone'])),
+                    social_vk = request.POST['social_vk'],
+                    social_ok = request.POST['social_ok'],
+                    social_inst = request.POST['social_inst'],
+                    social_tube = request.POST['social_tube'],
+                    username = request.POST['username'],
+                    password = request.POST['password1'],
+                    about = request.POST['about'],
+                    user = user,
+                    )
 
                 userProfile.save()
                 login(request, user)
@@ -117,12 +144,22 @@ def logoutuserView(request):
 
 
 def profileView(request, username):
-    user = get_object_or_404(UserProfile, username = username)
-    today = date.today()
-    age = today.year - user.birth.year - ((today.month, today.day) < (user.birth.month, user.birth.day))
-    print(age)
-    # return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE, 'age':age})
-    return render(request, f'{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',{'userprofile':user, 'page_name':VERBOSE_APP_NAMES.HOME,'page_style':APP_NAMES.HOME, 'age':age})
+    try:
+        user = get_object_or_404(UserProfile, username = username)
+        today = date.today()
+        age = today.year - user.birth.year - ((today.month, today.day) < (user.birth.month, user.birth.day))
+        # return render(request, f'{APP_NAMES.USER_PROFILE}/{APP_NAMES.USER_PROFILE}.html',{'user':user, 'page_name':VERBOSE_APP_NAMES.USER_PROFILE,'page_style':APP_NAMES.USER_PROFILE, 'age':age})
+        return render(request, f'{APP_NAMES.HOME}/{APP_NAMES.HOME}.html',
+                      {'userprofile': user, 'page_name': VERBOSE_APP_NAMES.HOME, 'page_style': APP_NAMES.HOME,
+                       'age': age})
+
+    except Http404:
+        try:
+            master_user = get_object_or_404(User, username = username)
+            return redirect(f'/{APP_NAMES.LOGIN_USER}/{APP_NAMES.REG_USER}')
+        except Http404:
+            return redirect(f'/{APP_NAMES.ARTISTS}')
+
 
 
 def profileupView(request):
