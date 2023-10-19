@@ -1,6 +1,8 @@
 from datetime import date
 from pprint import pprint
 from io import BytesIO
+import re
+
 import requests
 from PIL import Image
 from APP_NAMES import APP_NAMES, VERBOSE_APP_NAMES
@@ -60,7 +62,7 @@ def reguserView(request):
                 lastname = request.POST['lastname'],
                 birth = request.POST['birth'],
                 e_mail = request.POST['e_mail'],
-                phone = request.POST['phone'],
+                phone = ''.join(re.findall("\d+", request.POST['phone'])),
                 social_vk = request.POST['social_vk'],
                 social_ok = request.POST['social_ok'],
                 social_inst = request.POST['social_inst'],
