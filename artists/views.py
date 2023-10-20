@@ -15,6 +15,7 @@ app_name = APP_NAMES.ARTISTS
 verbose_name = VERBOSE_APP_NAMES.ARTISTS
 def artistsView(request):
     users = UserProfile.objects.all()
+    users = UserProfile.objects.filter(purpose='diz')
     if users:
         return render(request, f'{app_name}/{app_name}.html',{'users':users, 'page_name':verbose_name,'page_style':verbose_name})
     else:

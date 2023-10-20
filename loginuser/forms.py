@@ -12,6 +12,7 @@ class UserProfileForm(forms.ModelForm):
             'birth',
             'e_mail',
             'phone',
+            'purpose',
             'social_vk',
             'social_ok',
             'social_inst',

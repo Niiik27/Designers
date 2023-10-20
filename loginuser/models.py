@@ -18,6 +18,7 @@ class UserProfile(models.Model):
     birth = models.DateField('Дата рождения', blank=True)
     e_mail = models.CharField('Почта', max_length=len_fields, blank=True)
     phone = models.BigIntegerField('Телефон', blank=True)
+    purpose = models.CharField('Роль',max_length=10, blank=True)
     social_vk = models.CharField('Вконтакте', max_length=len_fields, blank=True)
     social_ok = models.CharField('Одноклассники', max_length=len_fields, blank=True)
     social_inst = models.CharField('Инста', max_length=len_fields, blank=True)

@@ -53,6 +53,7 @@ def reguserView(request):
         return render(request, f'{APP_NAMES.REG_USER}/{APP_NAMES.REG_USER}.html',
                       {'page_name': VERBOSE_APP_NAMES.REG_USER, 'page_style': APP_NAMES.REG_USER})
     else:
+
         if request.POST['password1'] == request.POST['password2']:
             try:
                 try:
@@ -86,6 +87,7 @@ def reguserView(request):
                     userProfile.birth = request.POST['birth']
                     userProfile.e_mail = request.POST['e_mail']
                     userProfile.phone = ''.join(re.findall("\d+", request.POST['phone']))
+                    userProfile.purpose = request.POST.get('purpose')
                     userProfile.social_vk = request.POST['social_vk']
                     userProfile.social_ok = request.POST['social_ok']
                     userProfile.social_inst = request.POST['social_inst']
@@ -108,6 +110,7 @@ def reguserView(request):
                         print("Произошел вход СУПЕРПОЛЬЗОВАТЕЛЯ, создается для него инфо")
                     else:
                         print("Создается инфо для нового пользователя")
+
                     userProfile = UserProfile(
                     photo_url = request.POST['photo_url'],
                     image = save_image_from_url(request.POST['photo_url']),
@@ -116,6 +119,7 @@ def reguserView(request):
                     birth = request.POST['birth'],
                     e_mail = request.POST['e_mail'],
                     phone = ''.join(re.findall("\d+", request.POST['phone'])),
+                    purpose = request.POST.get('purpose'),
                     social_vk = request.POST['social_vk'],
                     social_ok = request.POST['social_ok'],
                     social_inst = request.POST['social_inst'],
@@ -146,6 +150,7 @@ def reguserView(request):
                     # userProfile.birth = request.POST['birth']
                     # userProfile.e_mail = request.POST['e_mail']
                     # userProfile.phone = ''.join(re.findall("\d+", request.POST['phone']))
+                    # userProfile.purpose = request.POST.get('purpose')
                     # userProfile.social_vk = request.POST['social_vk']
                     # userProfile.social_ok = request.POST['social_ok']
                     # userProfile.social_inst = request.POST['social_inst']

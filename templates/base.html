@@ -23,7 +23,7 @@
                     Купить, заказать проект, просто спросить, посмотреть что дают, посмотреть что делают
 
                     -->
-                    <a href="{% url 'home' %}" class="link">Главная</a>
+                    <a href="{% url 'home' %}" class="link link-primary">{% if request.user.username %}{{ request.user.username }}{% else %}Главная{% endif %}</a>
                     <a href="{% url 'standards' %}" class="link">Нормативы</a>
                     <a href="{% url 'issues' %}" class="link">Обсуждения</a>
                     <a href="{% url 'events' %}" class="link">События</a>
