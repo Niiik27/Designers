@@ -5,7 +5,7 @@
 
         <form class="card" action="{% url 'reguser' %} " method="POST">
             {% csrf_token %}
-            <h1 class="head_1">{{ page_name }}</h1>
+            <h1 class="head_1">{% if request.user %}Редактирование профиля пользователя {{ request.user.username }}{% else %}{{ page_name }} {% endif %}</h1>
             <div class="inputs">
                 <div class="fields">
                     <label for="">Ссылка на ваше фото (из соцсети)</label>
@@ -20,7 +20,7 @@
                     <label for="">Почта</label>
                     <input class="txt-input" type="email" name="e_mail" value="menshikovn@yandex.ru">
                     <label for="">Телефон</label>
-                    <input class="txt-input"  type="tel" name="phone" id="phone" value="79539863165"  placeholder="+7 (___) ___-__-__">
+                    <input class="txt-input"  type="tel" name="phone" id="phone" value="+79539863165"  placeholder="+7 (___) ___-__-__">
 <!--"[0-9]{10}"-->
                     <label for="">Логин</label>
                     <input class="txt-input" type="text" name="username" value="niiik27">

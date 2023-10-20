@@ -26,7 +26,7 @@ img_link.addEventListener("change", function () {
 // Форматирование телефона
 
 const phoneInput = document.getElementById('phone');
-phoneInput.value = '+7('
+// phoneInput.value = '+7('
 
 // phoneInput.addEventListener('keypress', (event) => {
 //     console.log(event.key)
