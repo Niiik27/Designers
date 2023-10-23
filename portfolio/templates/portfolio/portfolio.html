@@ -27,8 +27,9 @@
         </section>
     {% if portfolio %}
         <section class="gallery">
-        <div id="img_view">
+        <div id="img_view"  style="display: none">
 <!--            Это основная картинка с описанием-->
+            <button id="prev_btn">Назад</button>
             <img id="main-image" src="" alt="">
             <div id="descriptions">
                 <div id="img_title">Название: <span>nazv</span></div>
@@ -37,30 +38,25 @@
                 <div id="img_urls">В сотрудничестве: <span>ssilki</span></div>
                 <div id="img_id" hidden="hidden">ID: <span>id</span></div>
             </div>
+            <button id="next_btn">Вперед</button>
         </div>
         <ul class="thumbs">
         {% for artwork in portfolio %}
-<!--            <div class="card">-->
-                <li class="thumb__block">
-                    <img class="thumb__img" src="{{ artwork.thumb.url }}" alt="">
+<!--        <div class="card">-->
+            <li class="thumb__block">
+                <img class="thumb__img" src="{{ artwork.thumb.url }}" alt="">
 
-                    <span class="tmb_title">{{ artwork.title }}</span>
-                    <span class="tmb_desc" hidden="hidden">{{ artwork.desc }}</span>
-                    <span class="tmb_date" hidden="hidden">{{ artwork.date }}</span>
-                    <span class="tmb_urls" hidden="hidden">{{ artwork.url }}</span>
-                    <span class="tmb_id" hidden="hidden">{{ artwork.id }}</span>
-<!--                <span class="thumb__txt">{{ artwork.desc|truncatechars:20 }}</span>-->
-                </li>
+                <span class="tmb_title">{{ artwork.title }}</span>
+                <span class="tmb_desc" hidden="hidden">{{ artwork.desc }}</span>
+                <span class="tmb_date" hidden="hidden">{{ artwork.date }}</span>
+                <span class="tmb_urls" hidden="hidden">{{ artwork.url }}</span>
+                <span class="tmb_id" hidden="hidden">{{ artwork.id }}</span>
+<!--            <span class="thumb__txt">{{ artwork.desc|truncatechars:20 }}</span>-->
+            </li>
         {% endfor %}
         </ul>
         {% endif %}
         </section>
-
-
-
-
-
-
 
         <script>
             /**
@@ -106,7 +102,6 @@
                 let month_list = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
                     'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
-
                 const months = {
                     'Jan.': 'января',
                     'Feb.': 'февраля',
@@ -121,7 +116,6 @@
                     "Nov.":'ноября',
                     "Dec.":'декабря'
                 };
-
 
                 console.log(date)
                 let date_list = date.split(',')
@@ -174,9 +168,9 @@
 
             }
             // console.log(get_format_date('двадцать второе октября 2023 года'))
-            /**Блок галереи*/
-            const mainView = document.getElementById('img_view');
-            // if (thumbs){
+                /**Блок галереи*/
+                const mainView = document.getElementById('img_view');
+                // if (thumbs){
                 const mainBlock = mainView.children;
                 const mainImage=mainBlock.namedItem('main-image');
                 // mainImage.hidden="hidden"
@@ -205,11 +199,6 @@
                 mainImage.src = getImgPath(thumbnail.src);
                 mainImage.alt = thumbnail.alt;
 
-                // mainView.style.backgroundImage=`url(${getImgPath(thumbnail.src)})`;
-                // mainView.style.backgroundSize= 'contain';
-                // mainView.style.backgroundRepeat= 'no-repeat';
-                // mainView.style.width = 'auto';
-
 
                 mainImage_title.textContent = title.textContent;
                 mainImage_desc.textContent = desc.textContent;
@@ -218,14 +207,14 @@
 
                 mainImage_id.textContent = img_id.textContent;
 
+                mainImage.addEventListener('click', (event) => {
+                    mainView.style.display='none';
+                });
+
                 thumbnail.classList.toggle('active');
                 let old_active=thumbnail;
-
-
                     thumbBlocks.forEach(thumbBlock =>
                     {
-
-
                         thumbBlock.addEventListener('click', (event) =>
                         {
                             const target = event.target;
@@ -236,7 +225,7 @@
                                 old_active.classList.toggle('active');
                                 old_active = target;
                             }
-
+                            mainView.style.display='flex';
 
                             const image = thumbBlock.getElementsByTagName('img')[0];
                             const descriptions = thumbBlock.getElementsByTagName('span');
@@ -249,9 +238,6 @@
                             mainImage.alt = image.alt;
 
                             mainView.style.backgroundImage=`url(${getImgPath(image.src)})`;
-                            // mainView.style.backgroundSize= 'cover';
-                            // mainView.style.backgroundRepeat= 'no-repeat';
-
 
                             mainImage_title.textContent = title.textContent;
                             mainImage_desc.textContent = desc.textContent;
@@ -275,10 +261,6 @@
             const urlsField = textFields.namedItem('url');
 
             const submitBtn = document.getElementById("submitButton");
-            // imageField.required=false;
-            // titleField.required=false;
-
-
 
             let header = document.getElementsByClassName('header-right')[0];
             const button = document.createElement('button');
@@ -286,7 +268,6 @@
             header.appendChild(button);
             button.addEventListener("click", () =>
             {
-
                 imgEditMode.value="new_image";
                 imgEditMode.required=true;
                 imageField.required=true;
@@ -339,15 +320,11 @@
                 urlsField.value=mainImage_urls.textContent;
                 idField.value=mainImage_id.textContent;
 
-
-
                 if (newImgForm.style.display === 'none')
                 {
                     newImgForm.style.display='flex';
                     newImgForm.style.zIndex='var(--max-z-index)';
                     submitBtn.innerHTML="Сохранить"
-
-
                 }
                 else
                 {

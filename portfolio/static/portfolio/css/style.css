@@ -171,6 +171,7 @@ label{
     border-style: solid;
     border-radius: 15px;
     box-shadow: 3px 3px 10px grey;
+    position:absolute;
 
 
     /*background-image: url('http://127.0.0.1:8001/media/portfolio/user_Niiik27_1/1.jpg');*/
@@ -182,11 +183,12 @@ label{
     /*padding: 20px;*/
     display: flex;
     /*object-fit:cover;*/
-    flex-direction: column;
+    /*flex-direction: column;*/
     justify-content: center;
     align-items: center;
+    z-index: var(--max-z-index);
     /*margin: auto;*/
-    position: relative;
+    /*position: relative;*/
 }
 
 #main-image{
@@ -226,9 +228,7 @@ label{
 .thumbs::-webkit-scrollbar {
     width: 0;
 }
-.thumbs::-ms-scrollbar {
-    width: 0;
-}
+
 
 .thumbs{
 
