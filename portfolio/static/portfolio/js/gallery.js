@@ -154,10 +154,11 @@ mainImage_urls.textContent = urls.textContent;
 mainImage_id.textContent = img_id.textContent;
 
 
-
 next_btn.addEventListener('click', (event) => {
     current_img_idx++;
-    if (current_img_idx>=thumbBlocks.length){current_img_idx=thumbBlocks.length-1;}
+    if (current_img_idx >= thumbBlocks.length) {
+        current_img_idx = thumbBlocks.length - 1;
+    }
     let thumbBlock = thumbBlocks[current_img_idx];
     set_main_img(thumbBlock, current_img_idx);
     mainView.style.display = 'flex';
@@ -165,15 +166,23 @@ next_btn.addEventListener('click', (event) => {
 
 prev_btn.addEventListener('click', (event) => {
     current_img_idx--;
-    if (current_img_idx<0){current_img_idx=0;}
+    if (current_img_idx < 0) {
+        current_img_idx = 0;
+    }
     let thumbBlock = thumbBlocks[current_img_idx];
     set_main_img(thumbBlock, current_img_idx);
     mainView.style.display = 'flex';
 
 });
 
-mainView.addEventListener('click', (event,target) => {
-    console.log(target)
+mainView.addEventListener('click', (event) => {
+    console.log(event.target.tagName)
+    //   if (event.target.id === "next_btn"||event.target.id === "prev_btn") {
+    //   return;
+    // }
+    if (event.target.tagName === "BUTTON") {
+        return;
+    }
     mainView.style.display = 'none';
 });
 

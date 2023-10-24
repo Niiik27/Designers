@@ -159,6 +159,23 @@ label{
     align-self: center;
 
 }
+.img-btn{
+    height:100%;
+    width:40px;
+    border-radius: 15px;
+    border-style: none;
+    font-weight: bold;
+    color: #ffedd7;
+    font-size: 40px;
+}
+
+.btn-left{
+    background:linear-gradient(to left, transparent, rgba(0, 0, 0, .5) 100%);
+}
+.btn-right{
+    background:linear-gradient(to left, rgba(0, 0, 0, .5), transparent 100%);
+}
+
 
 #img_view{
 
