@@ -173,7 +173,6 @@ prev_btn.addEventListener('click', (event) => {
 
 });
 
-
 thumbnail.classList.toggle('active');
 let old_active = thumbnail;
 thumbBlocks.forEach(function (thumbBlock, index) {
