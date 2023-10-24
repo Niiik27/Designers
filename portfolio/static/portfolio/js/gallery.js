@@ -114,7 +114,7 @@ function get_format_date(date) {
 const mainView = document.getElementById('img_view');
 // if (thumbs){
 const mainBlock = mainView.children;
-const mainImage = mainBlock.namedItem('main-image');
+// const mainImage = mainBlock.namedItem('main-image');
 // mainImage.hidden="hidden"
 
 const mainDescription = mainBlock.namedItem('descriptions').children;
@@ -142,8 +142,8 @@ const img_id = descriptions[4];
 let current_img_idx = 0;
 
 
-mainImage.src = getImgPath(thumbnail.src);
-mainImage.alt = thumbnail.alt;
+// mainImage.src = getImgPath(thumbnail.src);
+// mainImage.alt = thumbnail.alt;
 
 
 mainImage_title.textContent = title.textContent;
@@ -153,9 +153,6 @@ mainImage_urls.textContent = urls.textContent;
 
 mainImage_id.textContent = img_id.textContent;
 
-mainImage.addEventListener('click', (event) => {
-    mainView.style.display = 'none';
-});
 
 
 next_btn.addEventListener('click', (event) => {
@@ -163,6 +160,7 @@ next_btn.addEventListener('click', (event) => {
     if (current_img_idx>=thumbBlocks.length){current_img_idx=thumbBlocks.length-1;}
     let thumbBlock = thumbBlocks[current_img_idx];
     set_main_img(thumbBlock, current_img_idx);
+    mainView.style.display = 'flex';
 });
 
 prev_btn.addEventListener('click', (event) => {
@@ -170,8 +168,15 @@ prev_btn.addEventListener('click', (event) => {
     if (current_img_idx<0){current_img_idx=0;}
     let thumbBlock = thumbBlocks[current_img_idx];
     set_main_img(thumbBlock, current_img_idx);
+    mainView.style.display = 'flex';
 
 });
+
+mainView.addEventListener('click', (event,target) => {
+    console.log(target)
+    mainView.style.display = 'none';
+});
+
 
 thumbnail.classList.toggle('active');
 let old_active = thumbnail;
@@ -196,8 +201,8 @@ function set_main_img(thumbBlock, index) {
     const date = descriptions[2];
     const urls = descriptions[3];
     const img_id = descriptions[4];
-    mainImage.src = getImgPath(image.src);
-    mainImage.alt = image.alt;
+    // mainImage.src = getImgPath(image.src);
+    // mainImage.alt = image.alt;
 
     mainView.style.backgroundImage = `url(${getImgPath(image.src)})`;
 
