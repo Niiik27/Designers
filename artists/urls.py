@@ -6,5 +6,5 @@ from . import views
 
 urlpatterns = [
     path('', views.artistsView, name=views.app_name),
-    path('<str:username>/', views.artis, name=APP_NAMES.ARTISTS),
+    path('<str:username>/', views.artist, name=APP_NAMES.ARTISTS),
 ]

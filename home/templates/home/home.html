@@ -15,7 +15,7 @@
                 <span class="my_desc">Почта: {{ userprofile.e_mail }}</span>
                 <span class="my_desc">Телефон: {{ userprofile.phone }}</span>
                 <span class="my_desc">Роль: {{ userprofile.purpose }}</span>
-                <a href="{% url 'portfolio' %}">Посмотреть работы</a>
+                <a href="{% url 'portfolio' userprofile.username %}">Посмотреть работы</a>
                 <a href="{% url 'blog' %}">Блог</a>
                 <a href="{% url 'artists' %}">Коллеги</a>
                 <a href="{% url 'profileup' %}">Редактировать профиль</a>

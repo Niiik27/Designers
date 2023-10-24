@@ -4,5 +4,5 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.portfolioView, name=views.app_name),
+    path('<str:username>/', views.portfolioView, name=views.app_name),
 ]

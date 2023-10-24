@@ -4,7 +4,7 @@
 {% load static %}
     <main>
 
-        <form id="new_img_form" class="hero new_edit_form" action="{% url 'portfolio' %} " method="POST" enctype="multipart/form-data" style="display: none">
+        <form id="new_img_form" class="hero new_edit_form" action="{% url 'portfolio' username %} " method="POST" enctype="multipart/form-data" style="display: none">
             <div>Здесь приделал форму из формы джанго, с возможностью настраивать стили для лейблов и полей </div>
             {% csrf_token %}
             <input id="edit_mode" type="text" name="edit_mode"  hidden="hidden">

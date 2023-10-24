@@ -2,6 +2,7 @@ from io import BytesIO
 
 import PIL
 from PIL import Image
+from django.contrib.auth.models import User
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import OperationalError
@@ -71,7 +72,7 @@ def make_thumb(original_image, max_size=(300, 300)):
 #
 # return redirect(APP_NAMES.PORTFOLIO)
 
-def portfolioView(request):
+def portfolioView(request, username):
     # print(request)
     # print(type(request))
     # print(dir(request))
@@ -83,7 +84,9 @@ def portfolioView(request):
         # print('****portfolio****', 'portfolio')
         # print('****portfolio****', request.user.username)
         try:
-            portfolio = Artwork.objects.filter(user=request.user)
+            user = User.objects.get(username=username)
+            portfolio = Artwork.objects.filter(user=user)
+            # portfolio = get_object_or_404(Artwork, username=username)
 
             # portfolio = get_object_or_404(Artwork, username=request.user.username)
             # print(dir(portfolio.image))
@@ -98,7 +101,7 @@ def portfolioView(request):
             portfolio = None
         form = ArtworkForm()
         return render(request, template_name=f'./{app_name}/{app_name}.html',
-                      context={'form': form, 'portfolio': portfolio, 'page_name': verbose_name, 'page_style': app_name})
+                      context={'form': form, 'username':username,'portfolio': portfolio, 'page_name': verbose_name, 'page_style': app_name})
 
     else:
         # print('****portfolio****', 'portfolio')
@@ -113,26 +116,27 @@ def portfolioView(request):
         portfolio: Artwork = Artwork(user=request.user)
         match edit_btn:
             case 'new_image':
-                edit_img = request.FILES.get('image')
-                edit_title = request.POST.get('title')
-                edit_desc = request.POST.get('desc')
-                edit_date = request.POST.get('date')
-                edit_url = request.POST.get('url')
-                if edit_img:
-                    portfolio.image = edit_img
-                    portfolio.thumb = make_thumb(edit_img)
+                new_img = request.FILES.get('image')
+                new_title = request.POST.get('title')
+                new_desc = request.POST.get('desc')
+                new_date = request.POST.get('date')
+                new_url = request.POST.get('url')
+                if new_img:
+                    portfolio.image = new_img
+                    portfolio.thumb = make_thumb(new_img)
                 else:
                     return redirect(APP_NAMES.PORTFOLIO)
-                if edit_title:
-                    portfolio.title = edit_title
+                if new_title:
+                    portfolio.title = new_title
                 else:
                     return redirect(APP_NAMES.PORTFOLIO)
-                if edit_desc:
-                    portfolio.desc = edit_desc
-                if edit_date:
-                    portfolio.date = edit_date
-                if edit_url:
-                    portfolio.url = edit_url
+                if new_desc:
+                    portfolio.desc = new_desc
+                if new_date:
+                    print('new_date', new_date)
+                    portfolio.date = new_date
+                if new_url:
+                    portfolio.url = new_url
                 portfolio.save()
 
                 # form = ArtworkForm(request.POST, request.FILES)
@@ -147,7 +151,7 @@ def portfolioView(request):
 
                 return redirect(APP_NAMES.PORTFOLIO)
             case 'edit_image':
-                portfolio: Artwork = Artwork.objects.get(user=request.user,id=request.POST['id'])
+                portfolio: Artwork = Artwork.objects.get(user=request.user, id=request.POST['id'])
                 edit_img = request.FILES.get('image')
                 edit_title = request.POST.get('title')
                 edit_desc = request.POST.get('desc')

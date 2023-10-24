@@ -11,7 +11,7 @@ def partnersView(request):
 def partnersView(request):
     # users = UserProfile.objects.all()
 
-    UserProfile.objects.all().filter(Q(purpose='sailor') | Q(purpose='3d_maker'))
+    # UserProfile.objects.all().filter(Q(purpose='sailor') | Q(purpose='3d_maker'))
 
     users = UserProfile.objects.all().filter(Q(purpose='sailor') | Q(purpose='3d_maker'))
     if users:
