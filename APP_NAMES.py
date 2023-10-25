@@ -4,6 +4,7 @@ from abc import ABC
 class APP_NAMES(ABC):
     # MY APPS NAMES:
     # Если сразу давать русский перевод, то при появлении новых приложений не протеряется и не забудется
+
     HOME = 'home'
 
     SIGN = 'sign'
@@ -16,6 +17,7 @@ class APP_NAMES(ABC):
     PORTFOLIO = 'portfolio'
     BLOG = 'blog'
     ARTICLES = 'articles'
+    NEWARTICLE = 'newarticle'
     ARTICLE = 'article'
     USER_MESSAGES = 'usermessages'
 
@@ -44,6 +46,7 @@ class VERBOSE_APP_NAMES(APP_NAMES):
     BLOG = u'Блог'
     ARTICLES = u'Статьи'
     ARTICLE = u'Статья'
+    NEWARTICLE = u'Добавить статью'
     USER_MESSAGES = u'Сообщения'
 
     STANDARDS = u'Нормативы'
