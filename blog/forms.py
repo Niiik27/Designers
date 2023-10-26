@@ -1,7 +1,58 @@
 from django import forms
-from .models import Article
+from django.utils.html import format_html
 
+from .models import Article
+from django.forms import BaseForm
 class ArticleForm(forms.ModelForm):
+    self_defs = ['add_error',
+     'add_initial_prefix',
+     'add_prefix',
+     'as_div',
+     'as_p',
+     'as_table',
+     'as_ul',
+     'auto_id',
+     'base_fields',
+     'changed_data',
+     'clean',
+     'data',
+     'declared_fields',
+     'default_renderer',
+     'empty_permitted',
+     'error_class',
+     'errors',
+     'field_order',
+     'fields',
+     'files',
+     'full_clean',
+     'get_context',
+     'get_initial_for_field',
+     'has_changed',
+     'has_error',
+     'hidden_fields',
+     'initial',
+     'instance',
+     'is_bound',
+     'is_multipart',
+     'is_valid',
+     'label_suffix',
+     'media',
+     'non_field_errors',
+     'order_fields',
+     'prefix',
+     'render',
+     'renderer',
+     'save',
+     'template_name',
+     'template_name_div',
+     'template_name_label',
+     'template_name_p',
+     'template_name_table',
+     'template_name_ul',
+     'use_required_attribute',
+     'validate_unique',
+     'visible_fields']
+
     # image = forms.FileField(label="Изображение",widget=forms.FileInput(attrs={'class': 'txt-input','id':'img_file'}))
     # title = forms.CharField(label="Название",widget=forms.TextInput(attrs={'class': 'txt-input'}),help_text="Введите название")
     # desc = forms.CharField(label="Описание",widget=forms.Textarea(attrs={'class': 'txt-input'}))
@@ -20,14 +71,18 @@ class ArticleForm(forms.ModelForm):
         # self.fields['url'].label_class = 'form-label'
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # print(dir(self.fields['title'].widget))
-        # print(self)
+
+
+        print(dir(self.fields['title'].widget))
+        print(dir(self))
         self.fields['title'].widget.attrs['class'] = 'form-text-input form'
         self.fields['desc'].widget.attrs['class'] = 'form-area-input'
-        self.fields['image'].widget.attrs['class'] = 'form-text-input'
+        self.fields['image'].widget.attrs['class'] = 'form-img-input'
         self.fields['date'].widget.attrs['class'] = 'form-text-input'
         self.fields['url'].widget.attrs['class'] = 'form-text-input'
 
+
+        # self.fields['title'].label_tag(attrs={'class':'bla'})
         # self.fields['title'].label.attrs['class'] = 'your-class-name'
 
 
@@ -40,7 +95,8 @@ class ArticleForm(forms.ModelForm):
 
         # for name, label in self.field_labels.items():
         #     self.fields[name].widget.attrs.update({'class': 'your-class'})
-
+    # def label_tag(self):
+    #     return self.render(self.template_name_p)
     class Meta:
         model = Article
         fields = '__all__'
