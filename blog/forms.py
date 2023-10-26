@@ -79,6 +79,7 @@ class ArticleForm(forms.ModelForm):
         self.fields['desc'].widget.attrs['class'] = 'form-area-input'
         self.fields['image'].widget.attrs['class'] = 'form-img-input'
         self.fields['date'].widget.attrs['class'] = 'form-text-input'
+        self.fields['date'].widget.attrs['type'] = 'date'
         self.fields['url'].widget.attrs['class'] = 'form-text-input'
 
 
