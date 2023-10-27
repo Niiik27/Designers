@@ -73,13 +73,17 @@ class ArticleForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
 
-        print(dir(self.fields['title'].widget))
-        print(dir(self))
+        print(dir(self.fields['date'].widget.attrs))
+        print(self.fields['date'].widget.attrs)
+        # print(dir(self))
         self.fields['title'].widget.attrs['class'] = 'form-text-input form'
         self.fields['desc'].widget.attrs['class'] = 'form-area-input'
         self.fields['image'].widget.attrs['class'] = 'form-img-input'
+
         self.fields['date'].widget.attrs['class'] = 'form-text-input'
+        # self.fields['date'].widget.attrs.pop('type')
         self.fields['date'].widget.attrs['type'] = 'date'
+        self.fields['date'].widget.attrs.update({'type' : 'date'})
         self.fields['url'].widget.attrs['class'] = 'form-text-input'
 
 
@@ -101,6 +105,10 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'})
+        }
+
         # fields = [
         #     'title',
         #     'desc',

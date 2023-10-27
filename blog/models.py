@@ -12,4 +12,3 @@ class Article(models.Model):
     class Meta:
         verbose_name = APP_NAMES.ARTICLES
         verbose_name_plural = VERBOSE_APP_NAMES.ARTICLES
-
