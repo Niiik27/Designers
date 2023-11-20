@@ -5,8 +5,7 @@
 
     <form class="card" action="{% url 'reguser' %} " method="POST">
         {% csrf_token %}
-        <h1 class="head_1">{% if request.user %}Редактирование профиля пользователя {{ request.user.username }}{% else
-            %}{{ page_name }} {% endif %}</h1>
+        <h1 class="head_1">{% if request.user %}Редактирование профиля пользователя {{ request.user.username }}{% else %}{{ page_name }} {% endif %}</h1>
         <div class="inputs">
             <div class="fields">
                 <label for="">Ссылка на ваше фото (из соцсети)</label>

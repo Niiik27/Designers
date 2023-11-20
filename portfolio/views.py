@@ -112,9 +112,9 @@ def portfolioView(request, username):
         print(str(request.POST))
 
         edit_mode = request.POST['edit_mode']
-        edit_btn = request.POST['edit_btn']
+        # edit_mode = request.POST['edit_btn']
         portfolio: Artwork = Artwork(user=request.user)
-        match edit_btn:
+        match edit_mode:
             case 'new_image':
                 new_img = request.FILES.get('image')
                 new_title = request.POST.get('title')
@@ -125,11 +125,11 @@ def portfolioView(request, username):
                     portfolio.image = new_img
                     portfolio.thumb = make_thumb(new_img)
                 else:
-                    return redirect(APP_NAMES.PORTFOLIO)
+                    return redirect(APP_NAMES.PORTFOLIO,request.user)
                 if new_title:
                     portfolio.title = new_title
                 else:
-                    return redirect(APP_NAMES.PORTFOLIO)
+                    return redirect(APP_NAMES.PORTFOLIO,request.user)
                 if new_desc:
                     portfolio.desc = new_desc
                 if new_date:
@@ -149,7 +149,7 @@ def portfolioView(request, username):
                 #     artwork.thumb = make_thumb(original_image)
                 #     artwork.save()
 
-                return redirect(APP_NAMES.PORTFOLIO)
+                return redirect(APP_NAMES.PORTFOLIO,request.user)
             case 'edit_image':
                 portfolio: Artwork = Artwork.objects.get(user=request.user, id=request.POST['id'])
                 edit_img = request.FILES.get('image')
@@ -170,11 +170,11 @@ def portfolioView(request, username):
                 portfolio.url = edit_url
                 portfolio.save()
 
-                return redirect(APP_NAMES.PORTFOLIO)
+                return redirect(APP_NAMES.PORTFOLIO,request.user)
             case 'delete_image':
                 portfolio: Artwork = Artwork.objects.get(user=request.user, id=request.POST['id'])
                 portfolio.delete()
-                return redirect(APP_NAMES.PORTFOLIO)
+                return redirect(APP_NAMES.PORTFOLIO,request.user)
             case _:
                 print('error')
-                return redirect(APP_NAMES.PORTFOLIO)
+                return redirect(APP_NAMES.PORTFOLIO,request.user)

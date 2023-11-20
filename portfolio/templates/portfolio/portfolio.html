@@ -2,36 +2,15 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-    <main>
+<main>
 
-        <form id="new_img_form" class="hero new_edit_form" action="{% url 'portfolio' username %} " method="POST" enctype="multipart/form-data" style="display: none">
-            <div>Здесь приделал форму из формы джанго, с возможностью настраивать стили для лейблов и полей </div>
-            {% csrf_token %}
-            <input id="edit_mode" type="text" name="edit_mode"  hidden="hidden">
-            
-
-            {% for field in form %}
-            <div class="my_field">
-                {% if field.label != 'id_img' %}
-                <label class="my_label" for="{{ field.auto_id }}">{{ field.label }}</label>
-                {% endif %}
-                {{ field }}
-            </div>
-            {% endfor %}
-            <div class="submits">
-            <button id="submitButton" class="button" type = "submit" name="edit_btn" value="new_image">Добавить</button>
-            <button id="editButton" class="button" type = "submit" name="edit_btn" value="edit_image">Изменить</button>
-            <button id="delButton" class="button" type = "submit" name="edit_btn" value="delete_image">Удалить</button>
-            </div>
-        </form>
-        </section>
     {% if portfolio %}
-        <section class="wrapper gallery">
-        <div id="img_view"  style="display: none">
-<!--            Это основная картинка с описанием-->
+    <section class="wrapper gallery">
+        <div id="img_view" style="display: none">
+            <!--            Это основная картинка с описанием-->
             <button class="img-btn btn-left" id="prev_btn">&#9664;</button>
             <button class="img-btn btn-right" id="next_btn">&#9654;</button>
-<!--            <img id="main-image" src="" alt="" hidden="hidden">-->
+            <!--            <img id="main-image" src="" alt="" hidden="hidden">-->
             <div id="descriptions">
                 <div id="img_title">Название: <span>nazv</span></div>
                 <div id="img_desc">Описание: <span>opis</span></div>
@@ -42,8 +21,8 @@
 
         </div>
         <ul class="thumbs">
-        {% for artwork in portfolio %}
-<!--        <div class="card">-->
+            {% for artwork in portfolio %}
+            <!--        <div class="card">-->
             <li class="thumb__block">
                 <img class="thumb__img" src="{{ artwork.thumb.url }}" alt="">
                 <span class="tmb_title">{{ artwork.title }}</span>
@@ -51,14 +30,40 @@
                 <span class="tmb_date" hidden="hidden">{{ artwork.date }}</span>
                 <span class="tmb_urls" hidden="hidden">{{ artwork.url }}</span>
                 <span class="tmb_id" hidden="hidden">{{ artwork.id }}</span>
-<!--            <span class="thumb__txt">{{ artwork.desc|truncatechars:20 }}</span>-->
+                <!--            <span class="thumb__txt">{{ artwork.desc|truncatechars:20 }}</span>-->
             </li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-        {% endif %}
+        <section class="wrapper gallery">
+            <form id="new_img_form" class="hero new_edit_form" action="{% url 'portfolio' username %} " method="POST"
+                  enctype="multipart/form-data" style="display: none">
+                <div>Здесь приделал форму из формы джанго, с возможностью настраивать стили для лейблов и полей</div>
+                {% csrf_token %}
+                <input id="edit_mode" type="text" name="edit_mode" hidden="hidden">
+
+
+                {% for field in form %}
+                <div class="my_field">
+                    {% if field.label != 'id_img' %}
+                    <label class="my_label" for="{{ field.auto_id }}">{{ field.label }}</label>
+                    {% endif %}
+                    {{ field }}
+                </div>
+                {% endfor %}
+                <div class="submits">
+                    <button id="submitButton" class="button" type="submit" name="edit_btn" value="new_image">
+                    </button>
+<!--                    <button id="editButton" class="button" type="submit" name="edit_btn" value="edit_image">Изменить-->
+<!--                    </button>-->
+<!--                    <button id="delButton" class="button" type="submit" name="edit_btn" value="delete_image">Удалить-->
+<!--                    </button>-->
+                </div>
+            </form>
         </section>
+        {% endif %}
+    </section>
 
-          <script src="{% static '' %}{{ page_style }}/js/gallery.js"></script>
+    <script src="{% static '' %}{{ page_style }}/js/gallery.js"></script>
 
-    </main>
+</main>
 {% endblock %}
